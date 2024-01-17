@@ -1,0 +1,559 @@
+<div class="container">
+    <mat-horizontal-stepper [linear]="isLinear" labelPosition="bottom" #stepper>
+        <ng-template matStepperIcon="edit" color="primary">
+            <mat-icon>done</mat-icon>
+        </ng-template>
+        <form [formGroup]="AddProperty">
+            <mat-step label="Property Info" [stepControl]="AddProperty">
+                <div class="card" style="padding: 20px;max-height: 390px;overflow-y: auto;border: none;">
+                    <h5 style="font-weight: bolder;margin-bottom: 30px;">The Basics*</h5>
+                    <div class="main-container">
+                        <div class="d-flex flex-row gap-3 flex-wrap">
+                            <mat-form-field appearance="outline" class="Property-Type">
+                                <mat-label>Property Type</mat-label>
+                                <mat-select formControlName="propertyTypeId">
+                                    <mat-option *ngFor="let item of propertyTpes"
+                                        [value]="item.propertyTypeId">{{item.propertyTypeName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="Address" style="max-width: 100%;">
+                                <mat-label>Address</mat-label>
+                                <input #search matInput type="text" formControlName="formattedAddress"
+                                    style="max-width: 100%;">
+                                <!-- <div
+                                    *ngIf="AddProperty.controls['formattedAddress'].invalid && (AddProperty.controls['formattedAddress'].dirty || AddProperty.controls['formattedAddress'].touched)">
+                                    <div *ngIf="AddProperty.controls['formattedAddress'].errors?.['required']">
+                                        formattedAddress
+                                        is required.</div>
+                                </div> -->
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="street">
+                                <mat-label>Street</mat-label>
+                                <input matInput type="text" formControlName="street">
+                            </mat-form-field>
+                        </div>
+                        <div class="d-flex flex-row gap-3 flex-wrap">
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Route</mat-label>
+                                <input matInput type="text" formControlName="route">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>City</mat-label>
+                                <input matInput type="text" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>State</mat-label>
+                                <input matInput type="text" formControlName="state">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Zipcode</mat-label>
+                                <input matInput mtype="tel" maxlength="5" formControlName="zipCode">
+                            </mat-form-field>
+
+
+                        </div>
+                        <div class="d-flex flex-row gap-3 flex-wrap">
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Unit Number</mat-label>
+                                <input matInput type="tel" maxlength="4" formControlName="unitNumber">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Country</mat-label>
+                                <input matInput type="text" formControlName="country">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Price</mat-label>
+                                <input matInput type="number" formControlName="listingPrice">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Square Footage</mat-label>
+                                <input matInput type="number" formControlName="squareFootage">
+                            </mat-form-field>
+                        </div>
+                        <div class="d-flex flex-row gap-3 flex-wrap">
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>Lot Size</mat-label>
+                                <input matInput type="number" formControlName="lotSize">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="Address">
+                                <mat-label>Phone Number</mat-label>
+                                <input matInput type="tel" maxlength="10" formControlName="phoneNumber">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="unitsall">
+                                <mat-label>year Built</mat-label>
+                                <input matInput type="tel" maxlength="4" formControlName="yearBuilt">
+                            </mat-form-field>
+
+                        </div>
+                        <div class="d-flex flex-row gap-3 flex-wrap">
+                            <mat-form-field appearance="outline" class="dropdownClass">
+                                <mat-label># of Bedrooms</mat-label>
+                                <mat-select formControlName="bedrooms">
+                                    <mat-option value="1"> 1</mat-option>
+                                    <mat-option value="2"> 2</mat-option>
+                                    <mat-option value="3"> 3</mat-option>
+                                    <mat-option value="4"> 4</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="dropdownClass">
+                                <mat-label># of Bathrooms</mat-label>
+                                <mat-select formControlName="bathrooms">
+                                    <mat-option value="1"> 1</mat-option>
+                                    <mat-option value="2"> 2</mat-option>
+                                    <mat-option value="3"> 3</mat-option>
+                                    <mat-option value="4"> 4</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="dropdownClass">
+                                <mat-label>Listing Type</mat-label>
+                                <mat-select formControlName="contractType">
+                                    <mat-option *ngFor="let item of listingtype" [value]="item">{{item}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-form-field appearance="outline" style="width:100%;">
+                        <mat-label>Describe your property. explain what makes it such a great place to
+                            live.</mat-label>
+                        <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <button mat-button matStepperNext [disabled]="AddProperty.invalid">Continue</button>
+                    </div>
+                </div>
+            </mat-step>
+            <!-- <mat-step label="Lease">
+                <div class="card" style="padding: 20px;border: none;">
+                    <h5 style="font-weight: bolder;margin-bottom: 10px;">Lease terms</h5>
+
+                    <div class="d-flex flex-column">
+                        <ng-container *ngFor="let lease of leaseTerms; let i = index">
+                            <mat-checkbox [checked]="lease.checked"
+                                (change)="lease.checked = !lease.checked; getSelectedLeaseTerms()">{{
+                                lease.name }}</mat-checkbox>
+                        </ng-container>
+                    </div>
+                    <mat-form-field formGroupName="lease" appearance="outline" style="width: 100%;margin-top: 10px;">
+                        <mat-label>Lease Discloses.</mat-label>
+                        <textarea matInput formControlName="leaseDisCloser"></textarea>
+                    </mat-form-field>
+
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </div>
+            </mat-step> -->
+            <mat-step label="Media">
+                <div class="card" style="padding: 20px;border: none;">
+                    <div class="d-flex flex-row justify-content-between flex-wrap">
+                        <div>
+                            <div class="uplodImage-container">
+                                <div class="icon">
+                                    <i class="fa-solid fa-images"></i>
+
+                                </div>
+                                <div class="text" style="margin-top: -10px;">
+                                    Images(JPEG, JPG, PNG)
+                                </div>
+                                <div class="text"
+                                    [ngClass]="{ 'error-text': invalidImageSize && !selectedImageName[0]}">
+                                    {{ selectedImageName.length > 0 ?
+                                    (selectedImageName.length === 1 ? selectedImageName[0] : 'Selected ' +
+                                    selectedImageName.length + ' Images') :
+                                    (invalidImageSize ? invalidImageSize : 'No files chosen,
+                                    yet!') }}
+                                </div>
+
+
+                            </div>
+                            <div class="d-flex flex-row gap-3 mt-3 flex-wrap">
+                                <div>
+                                    <input id="fileInput" type="file" #fileInput id="fileInput"
+                                        (change)="onFileSelected($event)" multiple accept=".jpg,image/jpeg,image/png" />
+                                    <label for="fileInput" class="imageButton">
+                                        Browse a Image</label>
+                                </div>
+                                <button class="btn btn-secondary btn-preview"
+                                    (click)="PreviewImageCondition()">Preview</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uplodImage-container">
+                                <div class="icon">
+                                    <i class="fa-solid fa-photo-film"></i>
+                                </div>
+                                <div class="text" style="margin-top: -10px;">
+                                    Videos(MP4,MOV,AVI)
+                                </div>
+                                <div class="text"
+                                    [ngClass]="{ 'error-text': invalidVideoSize && !selectedVideoName[0]}">
+                                    {{ selectedVideoName.length > 0 ?
+                                    (selectedVideoName.length === 1 ? selectedVideoName[0] : 'Selected ' +
+                                    selectedVideoName.length + ' Images') :
+                                    (invalidVideoSize ? invalidVideoSize : 'No files chosen,
+                                    yet!') }}
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row gap-3 mt-3 flex-wrap">
+                                <div>
+                                    <input type="file" id="videoFile" (change)="onVideoFileSelected($event)" multiple
+                                        accept="video/*" />
+                                    <label for="videoFile" class="imageButton">
+                                        Browse a Video</label>
+                                </div>
+                                <button class="btn btn-secondary btn-preview"
+                                    (click)="PreviewVideoCondition()">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    <!-- //image preview data -->
+                    <div class="card p-2" style="width: 100%;height:fit-content;" *ngIf="previewPhotos">
+                        <h5 class="card-title">Preview photos</h5>
+                        <div class="card-body d-flex flex-row flex-wrap p-2 gap-2">
+                            <div *ngFor="let imageUrl of imageUrls;let i = index">
+                                <div class="videoImage-container">
+                                    <i class="fas fa-times cancel-icon" (click)="deleteImage(i)"></i>
+                                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" width="100px"
+                                        height="100px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //video preview data -->
+                    <div class="card p-2" style="width: 100%;height:fit-content;" *ngIf="previewVideos">
+                        <h5 class="card-title">Preview Videos</h5>
+                        <div class="card-body d-flex flex-row flex-wrap p-2 gap-2">
+                            <div *ngFor="let videoUrl of videoUrls;let i = index">
+                                <div class="videoImage-container">
+                                    <i class="fas fa-times cancel-icon" (click)="deleteVideo(i)"></i>
+                                    <video controls style="width: 300px;">
+                                        <source [src]="videoUrl" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- accept=".pdf,.doc,.docx" -->
+                <div style="display: flex; justify-content: flex-end; align-items: center;">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+
+            </mat-step>
+            <mat-step label="Documents">
+                <h4>Uploaded Documents</h4>
+                <div class="container mt-4">
+                    <div class="progress-bar-container mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" *ngIf="uploadedFiles" [ngClass]="{'progress-bar bg-danger': uploadedFiles > 0 && uploadedFiles <= 2,
+                               'progress-bar bg-success': uploadedFiles > 2 && uploadedFiles <= 5,
+                               'progress-bar bg-primary': uploadedFiles > 5 }" role="progressbar"
+                                [style.width]="progress + '%'">
+                                {{ uploadedFiles }} / {{ maxFiles }}
+                            </div>
+                        </div>
+                    </div>
+                    <h5></h5>
+                    <div class="row">
+                        <div class="col">
+                            <!-- File Upload Inputs 1, 2, 3, 4 -->
+                            <div class="file-upload-section">
+                                <div>
+                                    <label for="file1" class="file-label document-label"><i
+                                            class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; {{ documents[0].title
+                                        }}
+                                        <span *ngIf="successfulUploads[0]" class="success-symbol mx-2"
+                                            style="font-size: 20px;font-weight: 500;">&#10003;</span>
+                                    </label>
+                                    <i class="fa-solid fa-xmark" *ngIf="successfulUploads[0]"
+                                        style="color: red;font-size: 20px;" (click)="cancelUpload(0)"></i>
+
+                                    <input type="file" id="file1" class="form-control"
+                                        (change)="handleFileChange($event, 0)" accept=".pdf,.doc,.docx">
+                                </div>
+                                <div>
+                                    <label for="file2" class="file-label document-label"><i
+                                            class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; {{ documents[1].title
+                                        }}
+                                        <span *ngIf="successfulUploads[1]" class="success-symbol mx-2"
+                                            style="font-size: 20px;font-weight: 500;">&#10003;</span>
+                                    </label>
+                                    <i class="fa-solid fa-xmark" *ngIf="successfulUploads[1]"
+                                        style="color: red;font-size: 20px;" (click)="cancelUpload(1)"></i>
+                                    <input type="file" id="file2" class="form-control"
+                                        (change)="handleFileChange($event, 1)" accept=".pdf,.doc,.docx">
+                                </div>
+                                <div>
+                                    <label for="file3" class="file-label document-label"><i
+                                            class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; {{ documents[2].title
+                                        }}
+                                        <span *ngIf="successfulUploads[2]" class="success-symbol mx-2"
+                                            style="font-size: 20px;font-weight: 500;">&#10003;</span>
+                                    </label>
+                                    <i class="fa-solid fa-xmark" *ngIf="successfulUploads[2]"
+                                        style="color: red;font-size: 20px;" (click)="cancelUpload(2)"></i>
+                                    <input type="file" id="file3" class="form-control"
+                                        (change)="handleFileChange($event, 2)" accept=".pdf,.doc,.docx">
+                                </div>
+                                <div>
+                                    <label for="file4" class="file-label document-label"><i
+                                            class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; {{ documents[3].title
+                                        }}
+                                        <span *ngIf="successfulUploads[3]" class="success-symbol mx-2"
+                                            style="font-size: 20px;font-weight: 500;">&#10003;</span>
+                                    </label>
+                                    <i class="fa-solid fa-xmark" *ngIf="successfulUploads[3]"
+                                        style="color: red;font-size: 20px;" (click)="cancelUpload(3)"></i>
+                                    <input type="file" id="file4" class="form-control"
+                                        (change)="handleFileChange($event, 3)" accept=".pdf,.doc,.docx">
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="file5" class="file-label document-label"><i
+                                                class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp; {{
+                                            documents[4].title }}
+                                            <span *ngIf="successfulUploads[4]" class="success-symbol mx-2"
+                                                style="font-size: 20px;font-weight: 500;">&#10003;</span>
+                                        </label>
+                                        <i class="fa-solid fa-xmark" *ngIf="successfulUploads[4]"
+                                            style="color: red;font-size: 20px;" (click)="cancelUpload(4)"></i>
+                                        <input type="file" id="file5" class="form-control"
+                                            (change)="handleFileChange($event, 4)" accept=".pdf,.doc,.docx">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end; align-items: center;">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Amenities">
+                <div class="card" style="padding: 20px;max-height: 390px;overflow-y: auto;border: none;">
+                    <h5 style="font-weight: bolder;margin-bottom: 30px;">Which Amenities does your Property have?</h5>
+                    <div class="Allamenities mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <div *ngIf="['General amenities', 'Cooling', 'Heating', 'Parking'].includes(category.amenityCategoryName)"
+                                class="amenities">
+                                <h6 style="font-weight: bolder;">{{ category.amenityCategoryName }}</h6>
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Kitchen'" style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Kitchen'].includes(category.amenityCategoryName)" class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Interior'" style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Interior'].includes(category.amenityCategoryName)" class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Outdoor Amenities'" style="font-weight: bolder;">
+                                {{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Outdoor Amenities'].includes(category.amenityCategoryName)"
+                                class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Rooms'" style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Rooms'].includes(category.amenityCategoryName)" class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Flooring'" style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Flooring'].includes(category.amenityCategoryName)" class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Community Features'"
+                                style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Community Features'].includes(category.amenityCategoryName)"
+                                class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step label="Final Details & Submit">
+                <div class="card" style="max-height: 390px;overflow-y: auto;border: none;">
+                    <div class="d-flex flex-row gap-5 mt-3">
+                        <div class="smokeamentities mb-3">
+                            <ng-container *ngFor="let category of AllPropertyAmenties;"
+                                style="display: flex;flex-direction: column;">
+                                <h6 *ngIf="category.amenityCategoryName === 'Smoking'" style="font-weight: bolder;">
+                                    {{ category.amenityCategoryName }}
+                                </h6>
+                                <mat-radio-group *ngIf="category.amenityCategoryName === 'Smoking'" class="amenities">
+                                    <ng-container *ngFor="let amenity of category.list">
+                                        <mat-radio-button class="example-radio-button" [value]="amenity.amenityName"
+                                            [checked]="amenity.checked"
+                                            (click)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId,true)">
+                                            {{ amenity.amenityName }}
+                                        </mat-radio-button>
+                                    </ng-container>
+                                </mat-radio-group>
+                            </ng-container>
+                        </div>
+                        <div class="smokeamentities mb-3">
+                            <ng-container *ngFor="let category of AllPropertyAmenties;"
+                                style="display: flex;flex-direction: column;">
+                                <h6 *ngIf="category.amenityCategoryName === 'Dogs'" style="font-weight: bolder;">
+                                    {{ category.amenityCategoryName }}
+                                </h6>
+                                <mat-radio-group *ngIf="category.amenityCategoryName === 'Dogs'" class="amenities">
+                                    <ng-container *ngFor="let amenity of category.list">
+                                        <mat-radio-button class="example-radio-button" [value]="amenity.amenityName"
+                                            [checked]="amenity.checked"
+                                            (click)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId,true)">
+                                            {{ amenity.amenityName }}
+                                        </mat-radio-button>
+                                    </ng-container>
+                                </mat-radio-group>
+                            </ng-container>
+                        </div>
+                        <div class="smokeamentities mb-3">
+                            <ng-container *ngFor="let category of AllPropertyAmenties;"
+                                style="display: flex;flex-direction: column;">
+                                <h6 *ngIf="category.amenityCategoryName === 'Cats'" style="font-weight: bolder;">
+                                    {{ category.amenityCategoryName }}
+                                </h6>
+                                <mat-radio-group *ngIf="category.amenityCategoryName === 'Cats'" class="amenities">
+                                    <ng-container *ngFor="let amenity of category.list">
+                                        <mat-radio-button class="example-radio-button" [value]="amenity.amenityName"
+                                            [checked]="amenity.checked"
+                                            (click)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId,true)">
+                                            {{ amenity.amenityName }}
+                                        </mat-radio-button>
+                                    </ng-container>
+                                </mat-radio-group>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName==='Included Utilities'"
+                                style="font-weight: bolder;">{{
+                                category.amenityCategoryName }}</h6>
+                            <div *ngIf="['Included Utilities'].includes(category.amenityCategoryName)"
+                                class="allcheckboxs">
+                                <ng-container *ngFor="let amenity of category.list; let i = index">
+                                    <mat-checkbox [checked]="amenity.checked"
+                                        (change)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId)">
+                                        {{ amenity.amenityName }}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <h6>Where's the laundry located?</h6>
+                    <span>let rental know what kind of laundry facilities are available(if
+                        any)</span>
+                    <div class="mt-2 mb-3">
+
+                        <ng-container *ngFor="let category of AllPropertyAmenties;">
+                            <h6 *ngIf="category.amenityCategoryName === 'Laundry'" style="font-weight: bolder;">
+                                {{ category.amenityCategoryName }}
+                            </h6>
+                            <mat-radio-group *ngIf="category.amenityCategoryName === 'Laundry'" class="amenities">
+                                <ng-container *ngFor="let amenity of category.list;let i = index">
+                                    <mat-radio-button class="example-radio-button" [value]="amenity.amenityName"
+                                        [checked]="amenity.checked"
+                                        (click)="amenity.checked = !amenity.checked; handleCheckboxChange(amenity,category.amenityCategoryId,true)">
+                                        {{ amenity.amenityName }}
+                                    </mat-radio-button>
+                                </ng-container>
+                            </mat-radio-group>
+                        </ng-container>
+
+                    </div>
+                    <h6>If You have Property videos or 3d tour on your websites</h6>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Video/3D Tour URL</mat-label>
+                        <input matInput type="text">
+                    </mat-form-field>
+
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="onSubmitAddProperty()"
+                            [disabled]="AddProperty.pristine || !AddProperty.valid">Submit</button>
+                    </div>
+                </div>
+            </mat-step>
+        </form>
+
+    </mat-horizontal-stepper>
+
+</div>

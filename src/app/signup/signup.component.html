@@ -1,0 +1,56 @@
+<div class="sign-up-container">
+    <form [formGroup]="Signup" (ngSubmit)="signup()">
+        <mat-form-field class="login-design" appearance="outline">
+            <mat-label>First name</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field class="login-design" appearance="outline">
+            <mat-label>Last name</mat-label>
+            <input matInput placeholder="Placeholder" type="text" formControlName="lastName" required>
+        </mat-form-field>
+        <mat-form-field class="login-design" appearance="outline">
+            <mat-label>Email address</mat-label>
+            <input matInput placeholder="Placeholder" type="text" formControlName="email" required>
+        </mat-form-field>
+        <!-- <mat-form-field class="login-design" appearance="outline">
+            <mat-label>Phone no</mat-label>
+            <input type="tel" matInput placeholder="555-555-1234" formControlName="phone">
+        </mat-form-field> -->
+        <mat-form-field class="login-design" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Placeholder" type="password" formControlName="password" required>
+        </mat-form-field>
+        <mat-form-field class="login-design" appearance="outline">
+            <mat-label>Re-enter Password</mat-label>
+            <input matInput placeholder="Placeholder" type="password">
+        </mat-form-field>
+        <div class="d-flex gap-3 pad-3">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="tenant1" value="tenant" formControlName="role">
+                <label class="form-check-label" for="tenant1">
+                    Tenant
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="landlord1" value="landlord" formControlName="role">
+                <label class="form-check-label" for="landlord1">
+                    Landlord
+                </label>
+            </div>
+        </div>
+
+
+        <div>
+            <button class="btn btn w-100 mt-4" style="background-color:#40afed;color: white;height: 48px;"
+                [disabled]="!Signup.valid">Sign
+                Up</button>
+        </div>
+        <div style="text-align: center;font-weight: 500;margin-top: 20px;">
+            <span>Login with</span>
+        </div>
+        <div class="d-flex gap-4 justify-content-center mt-4">
+            <img style="width: 40px;height: 40px;" src="../../assets/google.png" alt="">
+            <img style="width: 40px;height: 40px;" src="../../assets/facebook.png" alt="">
+        </div>
+    </form>
+</div>

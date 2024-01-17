@@ -1,0 +1,497 @@
+<nav class="navbar navbar-expand-lg navbar-light p-1" style="background-color: #40afed;">
+    <div class="container-fluid">
+        <div class="nav-item" [routerLink]="['/']" style="cursor: pointer;">
+            <img src="../../../assets/company logo/AR logo 6.png" alt="" width="100px" height="40px">
+        </div>
+        <div class="nav-item input-group mx-auto mb-lg-0"
+            style="width: 600px;height: 48px;border-color:#40afed;border-radius: 5%;">
+            <div class="input-group-text" style="background-color: white;cursor: pointer;">
+                <img src="../../assets/house-search.png" alt="" width="25px" height="25px">
+            </div>
+            <input type="text" class="form-control" style="border-right: none;" [(ngModel)]="searchInput"
+                placeholder="Search for locality, landmark or zip" aria-label="Example text with button addon"
+                aria-describedby="button-addon1">
+            <span class="input-group-text" *ngIf="searchInput" (click)="cancelInput()"
+                style="background-color: white;border-left:none;color: red;cursor: pointer;"><i
+                    class="fa-solid fa-xmark"></i></span>
+        </div>
+        <form class="d-flex gap-3" style="justify-content: baseline;align-items: baseline;color: white;">
+            <ng-container *ngIf="!personName; else loggedIn">
+                <div class="header-name1" [matMenuTriggerFor]="login" #trigger="matMenuTrigger">
+                    <i class="fa-solid fa-user" style="color: white;" data-bs-toggle="modal"
+                        data-bs-target="#signupModal"></i>
+                </div>
+            </ng-container>
+            <ng-template #loggedIn>
+                <span>
+                    <img height="35px" width="35px" style="border-radius: 50%;"
+                        src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                        alt="user">
+                    <span class="mx-1 text-white  ">
+                        {{personName}}
+                    </span>
+                </span>
+            </ng-template>
+        </form>
+    </div>
+</nav>
+
+<mat-drawer-container class="property-container" autosize>
+    <mat-drawer #drawer class="property-sidenav" mode="side" opened>
+        <div class="property-sidenav-header">
+            <div>
+                <h6>Filter</h6>
+            </div>
+            <div (click)="resetAll()">
+                <h6><i class="fa-solid fa-rotate-left mx-1"></i>Reset</h6>
+
+            </div>
+        </div>
+
+        <div class="property-sidenav-content1">
+            <div>
+                <h4 style="font-weight: 500; font-size: 17px;margin-bottom: 10px;">
+                    Listing Type
+                </h4>
+                <div>
+                    <mat-radio-group [(ngModel)]="selectedListingType" (change)="onListingChange($event)">
+                        <mat-radio-button value="Sale">Buy</mat-radio-button>
+                        <mat-radio-button value="Rent">Rent</mat-radio-button>
+                        <mat-radio-button value="Lease">Lease</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+            </div>
+            <div>
+                <h4 style="font-weight: 500; font-size: 17px;margin-bottom: 10px;">
+                    Property Type
+                </h4>
+                <div class="d-inline-block" *ngFor="let type of propertyTypes" (click)="toggleSelection(type)">
+                    <span class="badge badge-light mx-1 mb-2 button-badge"
+                        [ngClass]="{'button-selected': selectedTypes.includes(type)}">
+                        {{ type }}
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="d-flex flex-column mt-2">
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;">
+                    Bedrooms
+                </h3>
+                <div class="btn-group">
+                    <button type="button" class="btn btn button-badge" *ngFor="let item of bedrooms"
+                        [class.selected]="selectedBedrooms.includes(item)" (click)="BedroomSelection(item)"> {{ item ===
+                        "any" ? item : "+" + item }}</button>
+
+                </div>
+
+            </div>
+            <div class="d-flex flex-column mt-2">
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;">
+                    Bathrooms
+                </h3>
+                <div class="btn-group">
+                    <button type="button" class="btn btn button-badge" *ngFor="let item of bathrooms"
+                        [class.selected]="selectedBathrooms.includes(item)" (click)="BathroomSelection(item)"> {{ item
+                        === "any" ? item : "+" + item }}</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-2">
+                <div class="d-flex flex-row" style="align-items: baseline;justify-content: space-between;">
+                    <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;">
+                        Price Range
+                    </h3>
+                    <span class="badge text-light" style="background-color: #40afed;">${{this.rangeprice[0]}} -
+                        ${{this.rangeprice[1]}}</span>
+                </div>
+                <div>
+                    <p-slider [ngModel]="rangeprice" [range]="true" [min]="0" [max]="500000"
+                        (ngModelChange)="onDynamicRangeChange($event)"></p-slider>
+
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-2">
+                <div class="d-flex flex-row" style="align-items: baseline;justify-content: space-between;">
+                    <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;">
+                        Squre feet
+                    </h3>
+                    <span class="badge text-light" style="background-color: #40afed;">{{this.rangesqrft[0]}}sqft -
+                        {{this.rangesqrft[1]}}sqft</span>
+                </div>
+                <div>
+                    <p-slider [ngModel]="rangesqrft" [range]="true" [max]="5000"
+                        (ngModelChange)="onDynamicRangesqrftChange($event)"></p-slider>
+
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-2">
+                <div class="d-flex flex-row" style="align-items: baseline;justify-content: space-between;">
+                    <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;">
+                        Lot Range
+                    </h3>
+                    <span class="badge text-light" style="background-color: #40afed;">{{this.rangelot[0]}}acrs -
+                        {{this.rangelot[1]}}acrs</span>
+                </div>
+
+                <div>
+                    <p-slider [ngModel]="rangelot" [range]="true" [max]="5000"
+                        (ngModelChange)="onDynamicRangelotChange($event)"></p-slider>
+
+                </div>
+            </div>
+            <div>
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;margin-top: 10px;">
+                    Year Build
+                </h3>
+                <div class="d-inline-block" *ngFor="let type of yearbuild" (click)="YearBuildSelection(type)">
+                    <span class="badge badge-light mx-1 mb-2 button-badge"
+                        [ngClass]="{'button-selected': selectedyearBuild.includes(type)}">
+                        {{ getAge(type) }}
+                    </span>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;margin-top: 10px;">
+                    Amenties
+                </h3>
+
+                <div class="d-inline-block" *ngFor="let type of amenities" (click)="AmentiesSelection(type.name)">
+                    <span class="badge badge-light mx-1 mb-2 button-badge"
+                        [ngClass]="{'button-selected': selectedamenties.includes(type.name)}">
+                        {{type.name}}
+                    </span>
+                </div>
+            </div>
+            <!-- <div>
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;margin-top: 10px;">
+                    Site View
+                </h3>
+                <div class="d-inline-block" *ngFor="let type of siteview" (click)="SiteviewSelection(type)">
+                    <span class="badge badge-light mx-1 mb-2 button-badge"
+                        [ngClass]="{'button-selected': selectedsiteview.includes(type)}">
+                        {{type}}
+                    </span>
+                </div>
+            </div> -->
+            <!-- <div>
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;margin-top: 10px;">
+                    Basement
+                </h3>
+                <div class=" form-check" style="font-size:15px;margin-top: 10px;color: #6C757D;font-weight: 600;">
+                    <input class="form-check-input mx-2" type="checkbox" id="basementChecked"
+                        [checked]="isBasementChecked" (change)="sendBasement($event)">
+                    <label class="form-check-label" for="basementChecked">
+                        Has Basement
+                    </label>
+                </div>
+            </div> -->
+            <!-- <div>
+                <h3 style="font-weight: 500;font-size: 17px;margin-bottom: 10px;margin-top: 10px;">
+                    Pets
+                </h3>
+                <div class=" form-check" style="font-size: 15px;margin-top: 10px;color: #6C757D;font-weight: 600;">
+                    <input class="form-check-input mx-2" type="checkbox" id="basementChecked"
+                        [checked]="isPetValueChecked" (change)="sendPetvalue($event)">
+                    <label class="form-check-label" for="basementChecked">
+                        Pets allowed
+                    </label>
+                </div>
+
+            </div>   -->
+        </div>
+
+    </mat-drawer>
+
+    <p-toast></p-toast>
+    <div class="property-sidenav-content">
+        <div class="property-header">
+
+            <div class="property-header1" style="font-size: 18px;">
+                <span class="mx-2" (click)="drawer.toggle()"><i class="fa-solid fa-arrow-left"></i></span>
+                <span><b class="mx-2"> Results</b>{{searchInput?'Found In '+ searchInput:"Not found"}}</span>
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+                <div>
+                    <p-button label="{{ buttonLabel }}" icon="{{ buttonIcon }}" (click)="toggleView()"
+                        styleClass="list-view" [text]="true" [raised]="true"></p-button>
+                </div>
+                <div>
+
+                    <p-button styleClass="list-view" [matMenuTriggerFor]="sort" [text]="true" [raised]="true">
+                        <div class="button-content">
+                            <i class="pi pi-sort"></i>
+                            <span class="label">Sort by</span>
+                        </div>
+                        <i class="pi pi-angle-down"></i>
+                    </p-button>
+                    <mat-menu #sort="matMenu" class="sort-menu-items">
+                        <button (click)="sortProperty(item)" mat-menu-item
+                            *ngFor="let item of items">{{item.label}}</button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+
+        <div class="property-card-container">
+            <!-- backend data----------------------------------------- -->
+            <div class="list-view-items" *ngIf="isCardView">
+                <ng-container *ngIf="(filteredItems | propertyfilter:searchInput).length > 0;else notFound">
+                    <div class="card" style="width:300px;height:440px;border-radius: 5%;"
+                        *ngFor="let item of filteredItems| propertyfilter:searchInput;">
+                        <div class=" card-img-top">
+                            <div [id]="'carousel_' + item.propertyId" class="carousel carousel-dark slide"
+                                data-bs-ride="carousel" data-bs-interval="2000">
+                                <div class="carousel-inner" [routerLink]="['/PropertyOverview']"
+                                    [queryParams]="{ id: item.propertyId }"
+                                    style="border-top-left-radius: 5%;border-top-right-radius: 5%;">
+                                    <div class="carousel-item active"
+                                        *ngFor="let imageData of  item.imageUrls;let i = index"
+                                        [class.active]="i === 0">
+                                        <ng-container *ngIf="imageData.url;">
+                                            <img [src]="imageData.url" class="d-block w-100" alt="Image {{i + 1}}"
+                                                height="200" width="200">
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    [attr.data-bs-target]="'#carousel_' + item.propertyId" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    [attr.data-bs-target]="'#carousel_' + item.propertyId" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="map-button">
+                                <p-button label="View Map" styleClass="view-map" [text]="true" [raised]="true">
+                                    <img src="../../assets/map-icon.png" alt="" width="25px" height="25px">
+                                </p-button>
+                                <div style="color: white;font-size: 18px;margin-top: 2px;">
+                                    <span *ngIf="item.imageUrls">1/{{ item.imageUrls.length}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="d-flex justify-content-between" style="cursor:pointer ;">
+
+
+                                <div>
+                                    <span [ngClass]="getBadgeClasses(getMatchingAmenitiesCount(item.amenities))"
+                                        title="{{getMatchingAmenitiesCount(item.amenities)}} out of 15 Matchings">
+                                        {{getMatchingAmenitiesCount(item.amenities)}} / 15
+                                    </span>
+                                </div>
+                                <h5>
+                                    {{
+                                    item.contractType === 'Sale'
+                                    ?'$' + item.listingPrice
+                                    : item.contractType === 'Rent'
+                                    ?'$' + item.listingPrice + '/mo'
+                                    : item.contractType === 'Lease'
+                                    ? '$' + item.listingPrice + '/mo'
+                                    : ''
+                                    }}
+                                </h5>
+                            </div>
+                            <div class="d-flex flex-column mt-2">
+                                <span style="font-size: 12px;">{{item.formattedAddress}}</span>
+                            </div>
+                            <div style="font-weight: 500;margin-top: 5px;font-size: 14px;">
+                                <span><b>{{item.bedrooms}}</b>bds</span> <span
+                                    style="color: rgb(87 85 85);margin: 5px;">|</span>
+                                <span><b>{{item.squareFootage}}</b>sqft</span><span
+                                    style="color: rgb(87 85 85);margin: 5px;">|</span><b>{{ getAge(item.yearBuilt)
+                                    }}</b>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap mt-2"
+                                style="justify-content: baseline; align-items: baseline; font-size: 12px;height: 56px;">
+                                <div *ngFor="let amenity of item.amenities; let i = index; let last = last"
+                                    class="d-flex gap-1 mb-2" [ngClass]="{'border-right': !last && i < 3}">
+                                    <ng-container *ngIf="i < 4 && amenity.list.length >0">
+                                        <div class="d-flex flex-row align-items-baseline gap-2">
+                                            <i [ngClass]="amenityIcons[amenity.amenityCategoryName]"></i>
+                                            <span>{{ amenity.amenityCategoryName }} ({{ amenity.list.length }})</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3 mt-2 mb-2"
+                                style="justify-content: space-between;align-items: center;color: #40afed;font-size: 16px;">
+                                <div style="display: flex;flex-direction: row;gap: 20px;">
+                                    <i class="fa-heart" [class.liked]="item.isLiked" [class.fas]="item.isLiked"
+                                        [class.far]="!item.isLiked" (click)="toggleLike(item)"></i>
+                                    <i [class.bookMarked]="item.bookMarked" [class.fas]="item.bookMarked"
+                                        [class.far]="!item.bookMarked" (click)="toggleBookMark(item)"
+                                        class="fa-regular fa-bookmark"></i>
+                                    <img (click)="openShareModal(item.propertyId)" src="../../assets/share-icon.png"
+                                        width="18px" height="18px" alt=""
+                                        style="color: #40afed; cursor: pointer; position: relative;">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+                <ng-template #notFound>
+                    <img src="../../assets/not found.gif" alt="" width="600px" height="485px">
+                </ng-template>
+            </div>
+            <!-- //grid view--------------------------- -->
+            <div class="grid-view-items" *ngIf="!isCardView">
+                <ng-container *ngIf="(filteredItems | propertyfilter:searchInput).length > 0;else notFound">
+                    <div class="card"
+                        style="width:1500px;height:226px;display: flex;flex-direction: row;max-width: 100%;"
+                        *ngFor="let item of filteredItems| propertyfilter:searchInput;">
+                        <div class="card-img-top" style="width: 350px;height:fit-content;">
+                            <div [id]="'carousel_' + item.propertyId" class="carousel carousel-dark slide"
+                                data-bs-ride="carousel" data-bs-interval="2000">
+                                <div class="carousel-inner" [routerLink]="['/PropertyOverview']"
+                                    [queryParams]="{ id: item.propertyId }"
+                                    style="border-top-left-radius: 2%;border-bottom-left-radius: 2%;">
+                                    <div class="carousel-item active" *ngFor="let img of item.imageUrls;let i = index"
+                                        [class.active]="i === 0">
+                                        <ng-container *ngIf="img.url;">
+                                            <!-- else dummyImage -->
+                                            <img [src]="img.url" class="d-block w-100" alt="Image {{i + 1}}"
+                                                height="225px" width="100%">
+                                        </ng-container>
+
+                                        <!-- <ng-template #dummyImage>
+                                            <img [src]="dummyImageUrl" class="d-block w-100" alt="Dummy Image"
+                                                height="223px" width="100%"
+                                                style="border-radius: 20px;border-right: 1px solid rgb(219, 214, 214);border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
+                                        </ng-template> -->
+                                    </div>
+
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    [attr.data-bs-target]="'#carousel_' + item.propertyId" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    [attr.data-bs-target]="'#carousel_' + item.propertyId" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="map-button1">
+                                <div style="color: white;font-size: 18px;margin-top: 2px;;">
+                                    <span>1/{{ item.imageUrls.length}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="first-matching">
+                                <div class="d-flex gap-5" style="cursor: pointer;">
+                                    <div>
+                                        <!-- <span [ngClass]="getBadgeClasses(item.amenity.length)"
+                                            title="{{item.amenity.length}} out of 15 Matchings">
+                                            {{item.amenity.length}} /
+                                            15
+                                        </span> -->
+                                        <span [ngClass]="getBadgeClasses(getMatchingAmenitiesCount(item.amenities))"
+                                            title="{{getMatchingAmenitiesCount(item.amenities)}} out of 15 Matchings">
+                                            {{getMatchingAmenitiesCount(item.amenities)}} / 15
+                                        </span>
+                                    </div>
+                                    <h5>
+
+                                        {{
+                                        item.contractType === 'Sale'
+                                        ? '$' + item.listingPrice
+                                        : item.contractType === 'Rent'
+                                        ? '$' + item.listingPrice + '/mo'
+                                        : item.contractType === 'Lease'
+                                        ? '$' + item.listingPrice + '/mo'
+                                        : ''
+                                        }}
+                                    </h5>
+                                </div>
+                                <div class="d-flex gap-4" style="color: #40afed;font-size: 20px;">
+                                    <i (click)="toggleLike(item)" [class.liked]="item.isLiked"
+                                        [class.fas]="item.isLiked" [class.far]="!item.isLiked" class="fa-heart"></i>
+                                    <i (click)="toggleBookMark(item)" [class.fas]="item.bookMarked"
+                                        [class.far]="!item.bookMarked" class="fa-bookmark"></i>
+                                    <img (click)="openShareModal(item.propertyId)" src="../../assets/share-icon.png"
+                                        width="20px" height="20px" alt="" style="color: #40afed;">
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column mt-2">
+                                <span style="font-size: 12px;">{{item.formattedAddress}}</span>
+                            </div>
+                            <div style="font-weight: 500;margin-top: 5px;font-size: 14px;">
+                                <span><b>{{item.bedrooms}}</b>bds</span> <span
+                                    style="color: rgb(87 85 85);margin: 5px;">|</span>
+                                <span><b>{{item.squareFootage}}</b>sqft</span><span
+                                    style="color: rgb(87 85 85);margin: 5px;">|</span><b>{{ getAge(item.yearBuilt)
+                                    }}</b>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap mt-2"
+                                style="justify-content: baseline; align-items: baseline; font-size: 12px;">
+                                <div *ngFor="let amenity of item.amenities; let i = index; let last = last"
+                                    class="d-flex gap-1 mb-2" [ngClass]="{'border-right': !last && i < 3}">
+                                    <ng-container *ngIf="i < 4 && amenity.list.length >0">
+                                        <div class="d-flex flex-row align-items-baseline gap-2">
+                                            <i [ngClass]="amenityIcons[amenity.amenityCategoryName]"></i>
+                                            <span>{{ amenity.amenityCategoryName }} ({{ amenity.list.length }})</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex;flex-direction: row;align-items: baseline;justify-content: space-between;margin-top: 10px;">
+                                <p-button label="View Map" styleClass="view-map1" [text]="true" [plain]="true">
+                                    <img src="../../assets/map-icon.png" alt="" width="25px" height="25px">
+                                </p-button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #notFound>
+                    <img src="../../assets/not found.gif" alt="" width="600px" height="485px">
+                </ng-template>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-drawer-container>
+
+<!-- //login functionality -->
+<mat-menu #login="matMenu">
+    <div class="container" (click)="$event.stopPropagation();" (keydown)="$event.stopPropagation()">
+        <div class="button-grp">
+            <div class="d-flex flex-row gap-3">
+                <button [class.login-link-active]="activeComponent === 'login'" class="login"
+                    (click)="toggleComponent('login')">Login</button>
+                <button [class.login-link-active]="activeComponent === 'signUp'" class="login"
+                    (click)="toggleComponent('signUp')">SignUp</button>
+            </div>
+            <button *ngIf="!personName" [ngClass]="{'hide-div': !personName}" #myButton type="button"
+                class="btn-close float-end" (click)="closeMenu(trigger)" aria-label="Close"></button>
+
+        </div>
+        <div class="login-container" style="margin-top: 20px;padding: 10px;">
+            <ng-container *ngIf="activeComponent === 'login'">
+                <app-login (closeMenuEvent)="handleCloseMenu()"></app-login>
+            </ng-container>
+            <ng-container *ngIf="activeComponent === 'signUp'">
+                <app-signup (closeMenuEvent)="handleCloseMenu()"></app-signup>
+            </ng-container>
+        </div>
+    </div>
+</mat-menu>

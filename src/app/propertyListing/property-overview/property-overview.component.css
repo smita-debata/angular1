@@ -1,0 +1,331 @@
+.header-name1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid white;
+    max-width: 100%;
+}
+
+.image-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+
+}
+
+.image-container {
+    width: 100%;
+    height: 305px;
+    max-width: 100%;
+    position: relative;
+    overflow: auto;
+}
+
+.Alllargeimages {
+    width: 100%;
+    height: 305px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex: 1 1 200px;
+    max-width: 100%;
+    position: relative;
+    overflow: auto;
+}
+
+.all-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: -25px;
+}
+
+.all-images {
+    height: 300px;
+    width: 645px;
+    flex: 10px 10px calc(33.3333% - 10px);
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.first-image-container {
+    max-width: 100%;
+}
+
+.first-image {
+    width: 1180px;
+    height: 195px;
+    border-radius: 10px;
+    max-width: 100%;
+    object-fit: cover;
+
+}
+
+.second-image {
+    width: 1040px;
+    height: 110px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    max-width: 100%;
+}
+
+.small-image {
+    width: 250px;
+    height: 90px;
+    border-radius: 10px;
+    max-width: 100%;
+    object-fit: cover;
+
+}
+
+
+.side-images {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+}
+
+.active-icon {
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 80px;
+    height: 25px;
+    gap: 5px;
+    justify-content: center;
+    top: 10px;
+    left: 10px;
+    background-color: #E1EBF1;
+    color: black;
+    font-weight: 500;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.amentiesOne {
+    padding: 10px 20px;
+    width: 330px;
+}
+
+.cancel-button {
+    position: absolute;
+    top: 70px;
+    left: 2px;
+}
+
+.default-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 305px;
+}
+
+.default-layout p {
+    font-size: 30px;
+}
+
+.content-container {
+    width: 100%;
+    height: 250px;
+    border: 1px solid black;
+    max-width: 100%;
+    background-color: white;
+
+}
+
+.scroll-content {
+    overflow-y: scroll;
+    max-height: 220px;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.product-content-header {
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #40AFED;
+    cursor: pointer;
+    max-width: 100%;
+
+}
+
+.icon-arrow {
+    width: 26px;
+    height: 30px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 0% 20%;
+    border: 1px solid black;
+}
+
+.icon-propertyname.active {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    font-weight: 500;
+    height: 28px;
+    border-radius: 10px;
+    max-width: 100%;
+    background-color: white;
+}
+
+.content-section {
+    width: 100%;
+    height: fit-content;
+    border: none;
+    max-width: 100%;
+}
+
+.propertyAddress {
+    width: 550px;
+    padding: 20px;
+    height: 200px;
+    max-width: 100%;
+}
+
+.propertyAddress-content {
+    border-radius: 10px;
+    padding: 10px;
+    width: 750px;
+    margin-right: 10px;
+    height: 200px;
+    overflow: auto;
+    max-width: 100%;
+}
+
+.amenties-container {
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    position: relative;
+    grid-gap: 10px;
+    padding: 20px;
+    width: 1013px;
+    height: fit-content;
+    max-width: 100%;
+    flex: 1 1 20px;
+}
+
+.amentiesOne {
+    padding: 10px 20px;
+    width: 330px;
+}
+
+.otherKeyfeatures {
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.responsiveBox {
+    width: 290px;
+    height: 218px;
+
+}
+
+.PricingDetails-container {
+    border-radius: 10px;
+    position: relative;
+    padding: 20px;
+    width: 1013px;
+    height: 200px;
+    max-width: 100%;
+    flex: 1 1 20px;
+    overflow: auto;
+}
+
+.ContactInformation-container {
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 1013px;
+    height: fit-content;
+    max-width: 100%;
+    flex: 1 1 20px;
+    /* overflow: auto; */
+}
+
+.faq-container {
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    width: 1013px;
+    height: fit-content;
+    font-size: 15px;
+    max-width: 100%;
+    flex: 1 1 20px;
+}
+
+.Requesttour {
+    width: 290px;
+    height: 218px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 2px dotted #cbdee9;
+    background-color: white;
+    margin-right: 10px;
+}
+
+/* Media query for smaller screens */
+/* @media screen and (max-width: 768px) {
+    .amenties-container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        max-width: none;
+        height: auto;
+        max-height: none;
+        padding: 10px;
+        grid-gap: 8px;
+    }
+} */
+
+.OverviewImages-container {
+    width: 100%;
+    padding: 0px;
+    height: 450px;
+    /* overflow: scroll;
+    overflow-x: hidden; */
+
+}
+
+.hide-div {
+    display: none;
+}
+
+/* Media query for even smaller screens, e.g., mobile devices */
+@media screen and (max-width: 480px) {
+    .amenties-container {
+        grid-template-columns: 1fr;
+        padding: 5px;
+        grid-gap: 5px;
+    }
+}

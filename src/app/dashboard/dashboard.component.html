@@ -1,0 +1,106 @@
+<div class="main-container">
+    <div class="header-content">
+        <div class="header-name">
+            <!-- <h5 style="color:#76C2ED;">Agent</h5>
+            <h5>Real</h5> -->
+            <!-- <img src="../../assets/company logo/AR logo 4.png" alt="" width="60px" height="45px"> -->
+            <img src="../.././assets/company logo/AR logo 5.png" alt="" width="100px" height="40px">
+        </div>
+        <div class="header-name1" [matMenuTriggerFor]="menu" #trigger="matMenuTrigger">
+            <i class="fa-solid fa-user" style="color: #70A2BE;" title="Login"></i>
+        </div>
+    </div>
+    <div class="mid-content">
+        <div class="mid-header">
+            <h1>The <span style="color:#76C2ED;font-weight:bolder;">fastest</span> way to find your</h1>
+            <h1>dream property</h1>
+        </div>
+        <div class="small-mid-content">
+            <span>OneStop solution for Real Estate</span>
+        </div>
+
+        <div class="mid-search-content">
+            <div class="input-group mb-3" style="width: 686px !important;">
+                <mat-select class="mat-custon-select" [(ngModel)]="selectedMatOption">
+                    <mat-option value="" selected>Select</mat-option>
+                    <mat-option value="Sale">For Buy</mat-option>
+                    <mat-option value="Rent">For Rent</mat-option>
+                    <mat-option value="Lease">For Lease</mat-option>
+                </mat-select>
+                <span class="input-group-text" (click)="getLocationAndProceed()"
+                    style="border-left: 1px solid #76C2ED;padding-right: 0px;"><i
+                        class="fa-solid fa-location-crosshairs"></i></span>
+                <input type="text" #search class="form-control dashSearch"
+                    style="border-color: #76C2ED;border-right: none;border-left: none;"
+                    placeholder="Search for locality, landmark or zip..." [(ngModel)]="selectedCity">
+                <div class="input-group-text">
+                    <i class="fa-solid fa-xmark" *ngIf="selectedCity" (click)="clearInput()"
+                        style="background-color: white; border-left: none; color: red; cursor: pointer;"></i>
+                    <img src="../../assets/brain.png" width="20px" height="20px" alt="" data-bs-toggle="modal"
+                        data-bs-target="#chatBot">
+                    <i class=" fas fa-regular fa-microphone"></i>
+                </div>
+            </div>
+            <div class="search-button">
+                <button class=" btn btn search-button" style="background-color: #76C2ED;width: 150px;height: 42px;"
+                    type="submit" (click)="toNavigate()">Search</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bottom-image-container">
+        <img class="dash-imag" src="../../assets/dashbackground.png" alt="">
+        <div class="footer-content">
+            <div>
+                <span [routerLink]="['/about']">About Us</span>
+            </div>
+            <div>
+                <span [routerLink]="['/contact']">Contact Us</span>
+            </div>
+            <div>
+                <span [routerLink]="['/help']">Help</span>
+            </div>
+            <div>
+                <span [routerLink]="['/privacyPolicy']">Privacy Policy</span>
+            </div>
+            <div>
+                <span [routerLink]="['/terms']">Terms Of Use</span>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-menu #menu="matMenu">
+    <div class="container" (click)="$event.stopPropagation();" (keydown)="$event.stopPropagation()">
+        <div class="button-grp">
+            <div class="d-flex flex-row gap-3">
+                <button [class.login-link-active]="activeComponent === 'login'" class="login"
+                    (click)="toggleComponent('login')">Login</button>
+                <button [class.login-link-active]="activeComponent === 'signUp'" class="login"
+                    (click)="toggleComponent('signUp')">SignUp</button>
+            </div>
+            <button #myButton type="button" class="btn-close float-end" (click)="closeMenu(trigger)"
+                aria-label="Close"></button>
+        </div>
+        <div class="login-container" style="margin-top: 20px;padding: 10px;">
+            <ng-container *ngIf="activeComponent === 'login'">
+                <app-login (closeMenuEvent)="handleCloseMenu()"></app-login>
+            </ng-container>
+            <ng-container *ngIf="activeComponent === 'signUp'">
+                <app-signup (closeMenuEvent)="handleCloseMenu()"></app-signup>
+            </ng-container>
+        </div>
+    </div>
+</mat-menu>
+
+<!-- //modal for chatbot--------------- -->
+<div class="modal fade" id="chatBot" tabindex="-1" aria-labelledby="chatBotLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-body p-0 m-0">
+                <embed type="text/html" src="https://agentrealtestapp.azurewebsites.net" width="100%" height="500px">
+            </div>
+
+        </div>
+    </div>
+</div>

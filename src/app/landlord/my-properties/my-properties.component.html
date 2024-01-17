@@ -1,0 +1,32 @@
+
+            <!-- table format of My Properties -->
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Type Of Property</th>
+                            <th>Property Address</th>
+                            <th>Description</th>
+                            <th>#Bedroom & #Bathroom</th>
+                            <th>Square Foot</th>
+                            <th>LotSize</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let property of mypropertydetails; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ property.propertyTypeName }}</td>
+                            <td>{{ property.formattedAddress }}</td>
+                            <td>{{ property.description }}</td>
+                            <td>{{ property.bedrooms }} bd & {{ property.bathrooms }} ba</td>
+                            <td>{{ property.squareFootage }}</td>
+                            <td>{{ property.lotSize }}</td>
+                            <td>
+                                    <mat-icon>edit</mat-icon>
+                            </td>
+                        </tr>
+                    </tbody> 
+                </table>
+            </div>

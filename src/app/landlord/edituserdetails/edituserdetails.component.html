@@ -1,0 +1,30 @@
+<form [formGroup]="editUserForm">
+    <div class="form-group">
+        <label for="firstname">
+            First Name:
+        </label>
+        <input type="text" class="form-control" id="firstname" name="firstname" formControlName="firstname" >
+    </div>
+    <div class="form-group">
+        <label for="lastname">
+            Last Name:
+        </label>
+        <input type="text" class="form-control" id="lastname" name="lastname" formControlName="lastname" >
+    </div>
+
+    <div class="form-group">
+           <label  for="profileimage"> Profile Image:</label> 
+           <input type="file" class="form-control" id="profileimage" name="profileimage" accept=".jpg,image/jpeg,image/png" formControlName="profileimage">
+           <button type="button" class="btn btn-info btn-sm" (click)="previewImage()"><i class="fa-solid fa-eye mx-1"></i>Preview</button>
+    </div>
+    <div class="image-preview-container">
+    <img  *ngIf="imagePreview" [src]="imagePreview" width="180px" height="150px" alt="Profile Image Preview">
+    <button type="button" class="btn btn-danger close-button" *ngIf="imagePreview" (click)="deselectImage()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="handleUserDetails()" type="button" class="btn btn-primary"  >Update</button>
+    </div>
+
+</form>

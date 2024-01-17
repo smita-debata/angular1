@@ -1,0 +1,382 @@
+<nav class="navbar navbar-expand-lg navbar-light p-1" style="background-color: #40afed;">
+    <div class="container-fluid">
+        <div class="nav-item" [routerLink]="['/']" style="cursor: pointer;">
+            <img src="../../../assets/company logo/AR logo 6.png" alt="" width="100px" height="40px">
+        </div>
+        <!-- <div class="nav-item input-group mx-auto mb-lg-0" style="width: 600px;height: 48px;border-color:#40afed;">
+            <mat-select class=" input-group-text mat-custon-select" [(ngModel)]="selectedMatOption">
+                <mat-option value="" selected>Select</mat-option>
+                <mat-option value="Rent">For Rent</mat-option>
+                <mat-option value="Lease">For Lease</mat-option>
+                <mat-option value="Sale">For Buy</mat-option>
+            </mat-select>
+            <input type="text" class="form-control" #search [(ngModel)]="searchInput"
+                placeholder="Search for locality, landmark or zip" aria-label="Example text with button addon"
+                aria-describedby="button-addon1" (keydown.enter)="toNavigateProperties()">
+            <span class="input-group-text" *ngIf="searchInput" (click)="cancelInput()"
+                style="background-color: white;color: red;cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+
+        </div> -->
+        <div class="nav-item input-group mx-auto mb-lg-0"
+            style="width: 600px;height: 48px;border-color:#40afed;border-radius: 5%;">
+            <div class="input-group-text" style="background-color: white;cursor: pointer;">
+                <img src="../../assets/house-search.png" alt="" width="25px" height="25px">
+            </div>
+            <input type="text" class="form-control" #search [(ngModel)]="searchInput"
+                placeholder="Search for locality, landmark or zip" aria-label="Example text with button addon"
+                aria-describedby="button-addon1">
+            <span class="input-group-text" *ngIf="searchInput" (click)="cancelInput()"
+                style="background-color: white;color: red;cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+            <span class="input-group-text bg-white" (click)="toNavigateProperties()">
+                <i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <form class="d-flex gap-2" style="justify-content: baseline;align-items: baseline;color: white;">
+            <div>
+                <i style="font-size: 20px;margin-right: 20px;" class="fa-regular fa-bell"></i>
+            </div>
+            <div>
+                <img src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                    width="30px" height="30px" style="border-radius: 50%;" alt="">
+            </div>
+            <div style="margin-right: 10px;">
+                <span>{{personName}}</span>
+            </div>
+
+            <div>
+                <i [matMenuTriggerFor]="menu" class="fa-solid fa-caret-down"></i>
+            </div>
+            <mat-menu #menu="matMenu" class="mt-4">
+                <div class="profile-details" (click)="onMenuButtonClick($event)">
+                    <div class="profile-header">
+                        <span>
+                            <img class="profile-image"
+                                src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                                alt="Profile Image">
+                            <i class="fa-solid fa-pen edit-icon"></i>
+                        </span>
+                        <span class="display-name text-center">
+
+                            <p class="text-white">{{personName}}</p>
+
+                            <p class="additional-details">{{personEmail}}</p>
+                        </span>
+                    </div>
+                    <div class="profile-menuOptions">
+                        <div class="menu-options">
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-user dropdown-icon"></i> My Profile
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-gear dropdown-icon"></i> Settings
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-heart dropdown-icon"></i> Favourites
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-clock dropdown-icon"></i> Subscription
+                            </button>
+                            <button mat-menu-item class="menu-buttons" (click)="LogOut()">
+                                <i class="fa-solid fa-power-off dropdown-icon"></i> LogOut
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-menu>
+
+        </form>
+
+    </div>
+</nav>
+
+<mat-drawer-container class="tenant-container" autosize>
+    <mat-drawer #drawer class="tenant-sidenav" mode="side" opened>
+        <div class="d-flex flex-column gap-3" style="font-size: 16px;font-weight: 500;">
+            <span>
+                Rent Payment
+            </span>
+            <span>Lease Agreement</span>
+            <span>Create Maintenance Request</span>
+        </div>
+
+
+    </mat-drawer>
+
+    <div class="tenant-sidenav-content">
+        <div class="tenant-main-header">
+            <div style="font-weight: 700;font-size: 18px;">
+                <span class="mx-2" (click)="drawer.toggle()"><i class="fa-solid fa-list"></i></span>
+                Tenant dashboard
+            </div>
+            <div class="d-flex" style="align-items: baseline;justify-content: baseline;gap: 20px;">
+                <div>
+                    <button type="button" class="btn btn-primary">Service Request</button>
+                </div>
+            </div>
+        </div>
+        <div class="tenant-card-container mt-2">
+            <div class="card" style="width: 450px;height:325px;padding: 10px;">
+                <div class="d-flex flex-row" style="justify-content: space-between;">
+                    <div>
+                        <img src="../../../assets/ag1.jpg" alt="" width="300px" height="195px"
+                            style="border-radius: 5%;">
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <img src="../../../assets/ag1.jpg" alt="" width="120px" height="60px"
+                            style="border-radius: 7%;">
+                        <img src="../../../assets/ag1.jpg" alt="" width="120px" height="60px"
+                            style="border-radius: 7%;">
+                        <img src="../../../assets/ag1.jpg" alt="" width="120px" height="60px"
+                            style="border-radius: 7%;">
+                    </div>
+                    <div class="img-count">
+                        <span>5+</span>
+                        <span>images</span>
+                    </div>
+
+                </div>
+                <div class="d-flex mt-2" style="justify-content: space-between;">
+                    <div class="d-flex flex-column" style="font-size: 15px;font-weight: 500;">
+                        <span>
+                            71-75 Kilsyth Rd, New York,
+                        </span>
+                        <span> NY 10017.</span>
+
+                    </div>
+                    <div class="d-flex flex-row">
+                        <span>
+                            <b style="font-size: 18px;">4</b> bds
+                        </span>
+                        <span style="color: rgb(87 85 85);margin: 5px;">|</span>
+                        <span>
+                            <b style="font-size: 18px;">4347</b>sqft
+                        </span>
+
+                    </div>
+                </div>
+                <div class="d-flex flex-row gap-2 mt-2" style="font-size: small;">
+                    <div class="d-flex gap-1">
+                        <img src="../../assets/air1.png" alt="" width="20px" height="20px">
+                        <span>Air conditioner</span>
+                    </div>
+                    <div>
+                        <span style="color: rgb(87 85 85);">|</span>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <img src="../../assets/swim.png" alt="" width="20px" height="20px">
+                        <span>Swimming pool</span>
+                    </div>
+                    <div>
+                        <span style="color: rgb(87 85 85);">|</span>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <img src="../../assets/Onsite.png" alt="" width="20px" height="20px">
+                        <span>On site parking</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row" style="justify-content: space-between;">
+                    <div>
+                        <span style="font-size: 12px;">Rental start date : </span><span
+                            style="font-weight: 500;font-size: 14px;">15/02/2023</span>
+                    </div>
+                    <div>
+                        <span style="color: #40AFED;font-size: 14px;">View property details</span>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 600px;height:325px;flex: 1 1 20px;">
+                <div class="d-flex" style="align-items: baseline;justify-content: space-between;">
+                    <div style="font-size: 18px;font-weight: 500;">
+                        <span>Upcoming payments</span>
+                    </div>
+                    <div class="d-flex gap-3 mx-2">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                        <i class="fa-solid fa-circle-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="d-flex flex-column gap-3 mt-3">
+
+                    <div class="d-flex flex-row gap-2">
+                        <div class="card" style="width: 550px; height: 90px;padding: 10px;">
+                            <div style="font-size: 16px;font-weight: 600;">
+                                <span>Electricity bill payment</span>
+                            </div>
+                            <div class="d-flex flex-row gap-3"
+                                style="align-items: baseline;justify-content: space-between;">
+                                <div style="font-size: 24px;">
+                                    <b>$490</b>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary">Pay now</button>
+                                </div>
+                            </div>
+                            <div style="margin-top: -10px;font-size: 12px;">
+                                <span>Due date: 07/10/2023</span>
+                            </div>
+
+                        </div>
+                        <div class="card" style="width: 300px; height: 90px;padding: 10px;">
+                            <div style="font-size: 16px;font-weight: 600;">
+                                <span>Rental payment</span>
+                            </div>
+                            <div style="font-size: 24px;">
+                                <b>$800</b>
+                            </div>
+                            <div style="font-size: 12px;">
+                                <span>Due date: 01/11/2023</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-row gap-2">
+                        <div class="card d-flex flex-row gap-3" style="width: 425px; height: 80px;padding: 10px;">
+                            <div
+                                style="width: 60px;height: 60px;background-color: #40AFED;border-radius: 50%;display: flex; align-items: center;color: white;justify-content: center;">
+                                <i class="fa-solid fa-money-check-dollar fa-2x"></i>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div style="font-size: 16px;font-weight: 600;">
+                                    Security Deposit
+                                </div>
+                                <div style="font-size: 24px;margin-top: -10px;">
+                                    <b> $15,700</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card d-flex flex-row gap-3" style="width: 425px; height: 80px;padding: 10px;">
+                            <div
+                                style="width: 60px;height: 60px;background-color: #7bd1e3;border-radius: 50%;display: flex; align-items: center;color: white;justify-content: center;">
+                                <i class="fa-solid fa-book fa-2x"></i>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div style="font-size: 16px;font-weight: 600;">
+                                    Current rent
+                                </div>
+                                <div style="font-size: 24px;margin-top: -10px;">
+                                    <b> $1,500</b>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-row gap-2">
+                        <div class="card d-flex flex-row gap-3" style="width: 425px; height: 80px;padding: 10px;">
+                            <div
+                                style="width: 60px;height: 60px;background-color: #98c1ff;border-radius: 50%;display: flex; align-items: center;color: white;justify-content: center;">
+                                <i class="fa-solid fa-wrench fa-2x"></i>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div style="font-size: 16px;font-weight: 600;">
+                                    Maintenance
+                                </div>
+                                <div style="font-size: 24px;margin-top: -10px;">
+                                    <b> $300</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card d-flex flex-row gap-3" style="width: 425px; height: 80px;padding: 10px;">
+                            <div
+                                style="width: 60px;height: 60px;background-color: #ffc266;border-radius: 50%;display: flex; align-items: center;color: white;justify-content: center;">
+                                <i class="fa-solid fa-circle-exclamation fa-2x"></i>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div style="font-size: 16px;font-weight: 600;">
+                                    Due amount
+                                </div>
+                                <div style="font-size: 24px;margin-top: -10px;">
+                                    <b> $800</b>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="d-flex flex-row flex-wrap gap-2 mt-3">
+            <div class="card" style="width: 800px; height: 300px;padding: 10px;">
+                <app-tenant-chart></app-tenant-chart>
+            </div>
+
+            <div class="card" style="width: 300px; height: 300px;padding: 10px;flex: 1 1 20px;">
+                <div style="font-weight: 500;font-size: 18px;">
+                    <span>Payment history</span>
+                </div>
+                <hr>
+                <div style="margin-top: -10px;">
+                    <div class="d-flex flex-row"
+                        style="align-items: baseline;justify-content: space-between;font-size: 16px;font-weight: 500;">
+                        <div>
+                            Rent paid
+                        </div>
+                        <div>
+                            $ 1,500
+                        </div>
+                    </div>
+                    <div style="font-size:12px;">
+                        15/08/2023
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <div class="d-flex flex-row"
+                        style="align-items: baseline;justify-content: space-between;font-size: 16px;font-weight: 500;">
+                        <div>
+                            Maintenance paid
+                        </div>
+                        <div>
+                            $ 300
+                        </div>
+                    </div>
+                    <div style="font-size:12px;">
+                        13/08/2023
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <div class="d-flex flex-row"
+                        style="align-items: baseline;justify-content: space-between;font-size: 16px;font-weight: 500;">
+                        <div>
+                            Electricity bill paid
+                        </div>
+                        <div>
+                            $ 490
+                        </div>
+                    </div>
+                    <div style="font-size:12px;">
+                        11/08/2023
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <div class="d-flex flex-row"
+                        style="align-items: baseline;justify-content: space-between;font-size: 16px;font-weight: 500;">
+                        <div>
+                            Rent paid
+                        </div>
+                        <div>
+                            $ 1,500
+                        </div>
+                    </div>
+                    <div style="font-size:12px;">
+                        05/07/2023
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <div class="d-flex flex-row"
+                        style="align-items: baseline;justify-content: space-between;font-size: 16px;font-weight: 500;">
+                        <div>
+                            Maintenance paid
+                        </div>
+                        <div>
+                            $ 300
+                        </div>
+                    </div>
+                    <div style="font-size:12px;">
+                        05/07/2023
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</mat-drawer-container>

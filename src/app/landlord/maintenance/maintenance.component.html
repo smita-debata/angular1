@@ -1,0 +1,70 @@
+<form [formGroup]="maintenance">
+    <!-- <div class="form-group">
+        <label for="catergory">
+            Maintenance Category:
+        </label>
+        <select id="maintenanceCategory" name="maintenanceCategory"  class="form-control" formControlName="maintenanceCategory">
+            <option>
+                Electrical
+            </option>
+            <option>
+                HouseKeeping
+            </option>
+            <option>
+                Interior
+            </option>
+        </select>
+    </div> -->
+    <div class="form-group">
+        <label for="maintenanceCategory"> Maintenance Category:</label>
+        <select class="form-control" name="maintenanceCategory" formControlName="maintenanceCategory" id="maintenanceCategory">
+          <option> Electrical</option>
+          <option>HouseKeeping</option>
+          <option>Interior</option>
+         
+        </select>
+      </div>
+
+    <div class="form-group">
+        <label for="property">Property:</label>
+        <input type="text" name="property" id="property" class="form-control" formControlName="property">
+    </div>
+
+    <div class="form-group">
+        <label for="urgencylevel">Urgency Level:</label>
+        <select id="urgencylevel" name="urgencylevel" class="form-control" formControlName="urgencylevel">
+            <option>
+                Emergency
+            </option>
+            <option>
+                Routine
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" formControlName="description"  name="description" id="description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="propertypictures">Upload picture here:</label>
+      <input multiple accept=".jpg,image/jpeg,image/png" type="file" class="form-control" id="propertypictures" name="propertypictures" (change)="previewImages($event)">
+<!-- <button type="button" class="btn btn-info btn-sm" (click)="previewImages($event)"><i class="fa-solid fa-eye mx-1"></i>Preview</button> -->
+
+    </div>
+
+    <div class="image-preview-container">
+        <div class="d-flex flex-row"*ngFor="let preview of imagePreviews">
+            <span>
+                <img [src]="preview" width="180px" height="150px" alt="Profile Image Preview">
+                <button type="button" class="btn btn-danger close-button" (click)="deselectImage(preview)"><i class="fa-solid fa-xmark"></i></button>
+             </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submitRequest()" >Save changes</button>
+      </div>
+
+</form>

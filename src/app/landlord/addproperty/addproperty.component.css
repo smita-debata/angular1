@@ -1,0 +1,199 @@
+::ng-deep.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: red !important
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.Property-Type {
+    width: 243px;
+    max-width: 100%;
+}
+
+
+
+.Address {
+    width: 500px;
+    max-width: 100%;
+}
+
+.street {
+    width: 243px;
+    max-width: 100%;
+}
+
+.smokeamentities {
+    width: 220px;
+}
+
+.unitsall {
+    width: 243px;
+    max-width: 100%;
+}
+
+.dropdownClass {
+    width: 330px;
+    max-width: 100%;
+}
+
+.smokingAmenties {
+    width: 325px;
+    max-width: 100%;
+}
+
+.dateoption {
+
+    width: 310px;
+}
+
+.Allamenities {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.amenities {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+
+.allcheckboxs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+
+
+}
+
+.amenties {
+    display: flex;
+    flex-direction: column;
+}
+
+.laundry {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .allcheckboxs,
+    .Allamenities {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.uplodImage-container {
+    height: 250px;
+    width: 450px;
+    border-radius: 10px;
+    border: 2px dashed #c2cdda;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.imageButton {
+    background-color: #0dcaf0;
+    color: black;
+    padding: 7px;
+    border-radius: 7px;
+    text-align: center;
+    width: 220px;
+    max-width: 100%;
+}
+
+.icon {
+    font-size: 100px;
+    color: #9658fe;
+    max-width: 100%;
+}
+
+.text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #5B5B7B;
+    width: fit-content;
+    height: fit-content;
+    max-width: 100%;
+}
+
+input[type="file"] {
+    display: none;
+
+}
+
+.videoImage-container {
+    position: relative;
+    height: auto;
+    display: inline-block;
+}
+
+.cancel-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    z-index: 1;
+    color: red;
+    cursor: pointer;
+
+}
+
+/* document section */
+.document-label {
+    margin: 10px 2px;
+    padding: 7px;
+    /* background-color: #0dcaf0; */
+    background-color: #8d9793;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+    color: white;
+    border-radius: 10px;
+}
+
+.document-label:hover {
+    background-color: #538cc6;
+}
+
+::ng-deep.pac-container {
+    z-index: 10000 !important;
+}
+
+::ng-deep.pac-container:after {
+    content: none !important;
+}
+
+.file-upload-section {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+
+}
+
+.btn-preview {
+    width: 220px;
+}
+
+.error-text {
+    color: red;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}

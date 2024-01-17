@@ -1,0 +1,149 @@
+.tenant-container {
+    width: 100%;
+    height: 90vh;
+}
+
+.tenant-sidenav-content {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.tenant-sidenav {
+    padding: 20px;
+    width: 250px;
+
+
+}
+
+.tenant-main-header {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.img-count {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin-top: 140px;
+    right: 40px;
+    align-items: center;
+
+
+}
+
+.form-control:focus {
+    border-color: #76C2ED !important;
+    box-shadow: none !important;
+}
+
+.tenant-card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card-container-small {
+    background-color: brown;
+}
+
+/* .mat-drawer-container {
+    overflow: hidden;
+
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #40afed;
+        border-radius: 5px;
+    }
+} */
+.mat-custon-select {
+    border-radius: 10px;
+    padding: 10px 15px 0 0;
+    text-align: center;
+    width: 120px !important;
+    background-color: #d0e6f3;
+}
+
+::ng-deep.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after {
+    color: green;
+}
+
+::ng-deep .mat-select-content {
+    background-color: #33ccff;
+    width: 300px;
+}
+
+/* //-----------------------------------profile design----- */
+
+/* User Dropdown */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: fit-content;
+    overflow: visible;
+    background-color: #40afed;
+    border-top: 4px solid white;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px;
+    height: 100%;
+    background-color: #40afed;
+}
+
+.display-name {
+    font-weight: 600;
+    color: black;
+}
+
+.additional-details {
+    font-size: 11px;
+    color: black;
+    margin-top: -15px;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-menuOptions {
+    border-top-right-radius: 10%;
+    border-top-left-radius: 10%;
+    background-color: white;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 4%;
+    right: 10%;
+    color: white;
+    cursor: pointer;
+}
+
+.dropdown-icon {
+    margin-right: 10px;
+    color: #148cd2;
+}
+
+.menu-buttons {
+    color: #148cd2;
+}

@@ -1,0 +1,270 @@
+/* .container {
+    width: 70%;
+} */
+::ng-deep .mat-tab-label {
+    min-width: 150px;
+}
+
+.card {
+    background-color: white;
+}
+
+.card-icon {
+    padding: 12px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 10px;
+}
+
+.nav-tabs .nav-item {
+    border: none;
+}
+
+.nav-tabs .nav-item a {
+    border: none;
+    padding: 15px 20px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.nav-tabs .nav-item a.active {
+    border-bottom: 3px solid #007bff;
+    /* Blue underline for the active tab */
+}
+
+/* Custom CSS for the search bar */
+.apexcharts-xaxis-labels text {
+    transform: translate(0, 10px);
+    /* Adjust the value (e.g., 10px) to move the labels down */
+}
+
+.custom-left-align {
+    text-align: left;
+}
+
+.custom-right-align {
+    text-align: right;
+}
+
+/* property listing */
+.custon-select {
+    width: 132px;
+    height: 48px;
+    border-color: #40afed;
+    border-radius: 5%;
+    background-color: #e1f1fb;
+    text-align: center;
+}
+
+.custon-select>option {
+    background-color: white;
+    color: black;
+}
+
+.property-container {
+    width: 100%;
+    height: 90vh;
+
+}
+
+.property-sidenav-content {
+    padding: 20px;
+    height: 100%;
+}
+
+.property-sidenav {
+    width: 280px;
+}
+
+::ng-deep.list-view {
+    color: #6C757D;
+    width: 147px;
+    height: 40px;
+
+}
+
+::ng-deep.view-map {
+    color: rgb(87 85 85);
+    background-color: rgb(204 207 207);
+    padding: 10px;
+    width: 130px;
+    height: 30px;
+    border-radius: 7%;
+}
+
+/* .mat-drawer-container {
+    overflow: hidden;
+
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #40afed;
+        border-radius: 5px;
+    }
+} */
+
+
+.property-sidenav-header {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    position: sticky;
+    background-color: white;
+    color: black;
+    display: flex;
+    z-index: 100;
+    border-bottom: 2px solid rgb(180, 178, 178);
+    justify-content: space-between;
+
+}
+
+button.selected {
+    background-color: #0db9f0;
+    color: white;
+}
+
+li {
+    list-style-type: none;
+}
+
+li a {
+    text-decoration: none;
+}
+
+.mat-custon-select {
+    border-radius: 10px;
+    padding: 10px 15px 0 0;
+    text-align: center;
+    width: 120px !important;
+    background-color: #d0e6f3;
+}
+
+
+/* //-----------------------------------profile design----- */
+
+/* User Dropdown */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: fit-content;
+    overflow: visible;
+    background-color: #40afed;
+    border-top: 4px solid white;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px;
+    height: 100%;
+    background-color: #40afed;
+}
+
+.display-name {
+    font-weight: 600;
+    color: black;
+}
+
+.additional-details {
+    font-size: 11px;
+    color: black;
+    margin-top: -15px;
+}
+
+.form-control:focus {
+    border-color: #76C2ED !important;
+    box-shadow: none !important;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-menuOptions {
+    border-top-right-radius: 10%;
+    border-top-left-radius: 10%;
+    background-color: white;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 16%;
+    right: 26%;
+    color: white;
+    cursor: pointer;
+}
+
+.closebutton {
+    color: white
+}
+
+.dropdown-icon {
+    margin-right: 10px;
+    color: #148cd2;
+}
+
+.menu-buttons {
+    color: #148cd2;
+}
+
+.btn-addinvestment {
+    border: 1px solid black;
+    padding: 2px;
+    background-color: lightgray;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.add-icon {
+    cursor: pointer;
+    padding: 2px;
+    color: #40afeded;
+    margin-left: 5px;
+    display: none;
+}
+
+li:hover .add-icon {
+    display: inline-block;
+}
+
+.has-error input,
+.has-error select {
+    border: 1px solid red;
+
+}
+
+.mandatory-indicator {
+    color: red;
+}
+
+::ng-deep.mat-tab-group {
+    margin-bottom: 100px;
+}
+
+.statustabButtons {
+    width: 160px;
+    height: 48px;
+    border-radius: 5px;
+    /* background-color: white; */
+    border: none;
+}
+
+.statustabButtons-link-active {
+    border: none;
+    /* border-bottom: 2px solid #40afed; */
+    background-color: #40afed;
+    /* color: black; */
+    color: white;
+    font-weight: 500;
+}

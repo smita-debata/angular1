@@ -1,0 +1,850 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light p-1" style="background-color: #40afed;">
+    <div class="container-fluid d-flex justify-content-between">
+        <div class="nav-item" [routerLink]="['/']" style="cursor: pointer;">
+            <img src="../../../assets/company logo/AR logo 6.png" alt="" width="100px" height="40px">
+        </div>
+        <!-- <div class="nav-item input-group" style="width: 600px;height: 48px;border-color:#40afed;">
+            <mat-select class=" input-group-text mat-custon-select" [(ngModel)]="selectedMatOption">
+                <mat-option value="" selected>Select</mat-option>
+                <mat-option value="Rent">For Rent</mat-option>
+                <mat-option value="Lease">For Lease</mat-option>
+                <mat-option value="Sale">For Buy</mat-option>
+            </mat-select>
+            <input type="text" class="form-control" #search [(ngModel)]="searchInput"
+                placeholder="Search for locality, landmark or zip" aria-label="Example text with button addon"
+                aria-describedby="button-addon1" (keydown.enter)="toNavigateProperties()">
+            <span class="input-group-text" *ngIf="searchInput" (click)="cancelInput()"
+                style="background-color: white;color: red;cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+
+        </div> -->
+        <div class="nav-item input-group mx-auto mb-lg-0"
+            style="width: 600px;height: 48px;border-color:#40afed;border-radius: 5%;">
+            <div class="input-group-text" style="background-color: white;cursor: pointer;">
+                <img src="../../assets/house-search.png" alt="" width="25px" height="25px">
+            </div>
+            <input type="text" class="form-control" #search [(ngModel)]="searchInput"
+                placeholder="Search for locality, landmark or zip" aria-label="Example text with button addon"
+                aria-describedby="button-addon1">
+            <span class="input-group-text" *ngIf="searchInput" (click)="cancelInput()"
+                style="background-color: white;color: red;cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+            <span class="input-group-text bg-white" (click)="toNavigateProperties()">
+                <i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span style="font-size: 22px;">
+                <i class="fa-regular fa-bell text-white mx-4 mt-2"></i>
+            </span>
+            <span>
+                <img height="35px" width="35px" style="border-radius: 50%;"
+                    src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                    alt="user">
+                <span class="mx-1 text-white  ">
+                    {{personName}}
+                </span>
+            </span>
+            <span style="margin-left: 5px;">
+
+                <i class="fa-solid fa-caret-down text-white mt-2 mx-2" [matMenuTriggerFor]="menu"
+                    #trigger="matMenuTrigger"></i>
+            </span>
+            <mat-menu #menu="matMenu" class="mt-4">
+                <div class="profile-details" (click)="onMenuButtonClick($event)">
+                    <div class="profile-header">
+                        <button #matclosebutton type="button" class="btn-close"
+                            style="position: absolute; right: 6%; top:3%;" (click)="closeMenu(trigger)"
+                            aria-label="Close"></button>
+                        <span>
+                            <img class="profile-image"
+                                src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                                alt="Profile Image">
+                                <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="handleCloseMat()" class="fa-solid fa-pen edit-icon"></i>
+                            </span>
+                        <span class="display-name text-center">
+                            <p class="text-white">{{personName?personName:'Murali Lagisetty'}}</p>
+                            <p class="additional-details">{{personEmail?personEmail:'murali.gmail.com'}}</p>
+                        </span>
+                    </div>
+                    <div class="profile-menuOptions">
+                        <div class="menu-options">
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-user dropdown-icon"></i> My Profile
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-gear dropdown-icon"></i> Settings
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-heart dropdown-icon"></i> Favourites
+                            </button>
+                            <button mat-menu-item class="menu-buttons">
+                                <i class="fa-solid fa-clock dropdown-icon"></i> Subscription
+                            </button>
+                            <button data-bs-toggle="modal" data-bs-target="#passwordchangemodal" mat-menu-item
+                                class="menu-buttons" (click)="handleCloseMat()">
+                                <i class="fas fa-key"></i> Reset Password
+                            </button>
+                            <button mat-menu-item class="menu-buttons" (click)="LogOut()">
+                                <i class="fa-solid fa-power-off dropdown-icon"></i> LogOut
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-menu>
+        </div>
+    </div>
+</nav>
+
+<!-- SideBar -->
+<mat-drawer-container class="property-container" autosize>
+    <mat-drawer #drawer class="property-sidenav" mode="side" opened>
+        <ul>
+            <li class="d-flex flex-row gap-3 mt-3" style="list-style-type: none; font-weight: 600;">
+                <span>My Investment </span>
+                <span class="badge bg-secondary"><i class="fa-solid fa-plus" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalCenter" title="Add new investment"
+                        (click)="isAddmode()"></i></span>
+                <div (click)="toggleOptions()">
+                    <i *ngIf="!showOptions" class="fa-solid fa-arrow-down mx-2"></i>
+                    <i *ngIf="showOptions" class="fa-solid fa-arrow-up mx-2"></i>
+                </div>
+            </li>
+
+            <div *ngIf="showOptions">
+                <ul class="">
+                    <li *ngFor="let investment of investmentData" class="my-1" style="cursor: pointer;">{{
+                        investment.investmentName }}
+                        <i data-bs-toggle="modal" data-bs-target="#exampleModalCenter" mat-icon-button
+                            (click)="editInvestment(investment)" *ngIf="showAddIcon"
+                            class="fa-solid fa-pen add-icon"></i>
+
+                    </li>
+                </ul>
+            </div>
+            <li class="my-4" style="list-style-type: none; cursor: pointer; ">
+                <span>Rental Listing </span>
+            </li>
+            <li class="my-4" style="list-style-type: none; cursor: pointer; ">
+                <span>Connect Your Bank </span>
+            </li>
+            <li class="my-4" style="list-style-type: none; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#maintenanceModal">
+                <span>Maintenance Management </span>
+            </li>
+
+        </ul>
+
+
+    </mat-drawer>
+
+    <!-- Main Conent -->
+
+    <div class="property-sidenav-content">
+        <div id="landlord-dashboard">
+            <div class="d-flex flex-row mb-2" style="align-items: baseline;justify-content: space-between;">
+                <div class="d-flex flex-row gap-2">
+                    <span class="mx-2" (click)="drawer.toggle()"><i class="fa-solid fa-list"></i></span>
+                    <h5>Landlord Dashboard</h5>
+                </div>
+                <div>
+                    <button (click)="showTable()" type="button" class="btn btn mx-2"
+                        style="background-color: #40AFED;color: white;" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalNew">View Investments</button>
+                    <button type="button" class="btn btn mx-2" style="background-color: #40AFED;color: white;"
+                        data-bs-toggle="modal" data-bs-target="#MyPropertiesModal">My Properties</button>                        
+                    <button type="button" class="btn btn" style="background-color: #40AFED;color: white;"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">Add Property</button>
+                </div>
+            </div>
+            <div class="d-flex gap-2 mb-2 flex-wrap">
+                <div class="card" style="height: 251px;">
+                    <div class="card-header mt-2" style="background-color: white;">Property Overview</div>
+                    <div class="card-body" style="width: 100%;height: fit-content;">
+                        <!-- Apx Chart Here -->
+                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                            [dataLabels]="chartOptions1.dataLabels" [labels]="chartOptions1.labels"
+                            [responsive]="chartOptions1.responsive" [colors]="chartOptions1.colors"
+                            [stroke]="chartOptions1.stroke" [legend]="chartOptions1.legend">
+
+                        </apx-chart>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="card" style="height: 78px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i style="background-color:#40afed"
+                                            class="fa-solid fa-money-check-dollar fa-2x  card-icon"></i>
+                                    </span>
+                                    <span class="">
+                                        <h5 style="color: #40afed;">$10,500</h5>
+                                        <p>Total Rent amount</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-left: -10px;">
+                            <div class="card" style="height: 78px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i style="background-color:#8c61e1 ;"
+                                            class="fa fa-credit-card fa-2x  card-icon"></i>
+                                    </span>
+                                    <span class="">
+                                        <h5 style="color: #8c61e1;">{{netWorthValue | currency:'USD':'symbol':'1.2-2'}}
+                                        </h5>
+                                        <p>Net worth value</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="card" style="height: 78px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i class="fa fa-book card-icon fa-2x " style="background-color: #7bd1e3;"></i>
+                                    </span>
+                                    <span class="">
+                                        <h6>Rent Received</h6>
+                                        <p>$9,700</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-left: -10px;">
+                            <div class="card" style="height: 78px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i class="fa-solid fa-circle-exclamation fa-2x card-icon"
+                                            style="background-color: #ffc266;"></i>
+                                    </span>
+                                    <span class="">
+                                        <h6>Rent Overdue</h6>
+                                        <p>$800</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="card" style="height: 80px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i class="fa-solid fa-calendar fa-2x card-icon"
+                                            style="background-color: #ff9898;"></i>
+                                        <!-- <i class="fa fa-calendar-o fa-2x card-icon " style="background-color: #ff9898;"
+                                                aria-hidden="true"></i> -->
+                                    </span>
+                                    <span class="">
+                                        <h6>Lease Expiration</h6>
+                                        <p>2</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-left: -10px;">
+                            <div class="card" style="height: 80px;">
+                                <div class="card-body d-flex">
+                                    <span>
+                                        <i class="fa fa-wrench fa-2x card-icon" style="background-color: #98c1ff;"></i>
+                                    </span>
+                                    <span class="">
+                                        <h6>Maintenance Request</h6>
+                                        <p>13</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row flex-wrap">
+                <div class="col-md-8" style="padding-right: 7px;">
+                    <div class="card" style="height: 375px; overflow: hidden; ">
+                        <div class="d-flex flex-row gap-1 p-2">
+                            <div style="width: 500px;height: 360px;">
+                                <div class="d-flex flex-row gap-2 flex-wrap">
+                                    <button [class.statustabButtons-link-active]="activestatusButton === 'Occupied'"
+                                        class="statustabButtons"
+                                        (click)="toggleStatusButton('Occupied')">Occupied</button>
+                                    <button [class.statustabButtons-link-active]="activestatusButton === 'Vacant'"
+                                        class="statustabButtons" (click)="toggleStatusButton('Vacant')">Vacant</button>
+                                    <button
+                                        [class.statustabButtons-link-active]="activestatusButton === 'Under Construction'"
+                                        class="statustabButtons"
+                                        (click)="toggleStatusButton('Under Construction')">Under
+                                        Construction</button>
+                                </div>
+
+                                <div *ngIf="activestatusButton==='Occupied'">
+                                    <ng-container *ngIf="propertydetailsdata.length > 0;else notFound">
+                                        <div class="card-body"
+                                            style="height: 285px;width:640px;margin: 20px;overflow: auto;">
+                                            <span
+                                                *ngFor="let item of propertydetailsdata | landlord:statusInputSearch;">
+                                                <ng-container *ngIf="item.status == 'Active'">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+                                                            <div class="card-body p-0"
+                                                                *ngFor="let img of item.imageUrls; let i = index"
+                                                                [class.active]="i === 0">
+                                                                <span class="carousel">
+                                                                    <ng-container *ngIf="i === 0">
+                                                                        <img style="border-radius: 5px;" width="100%"
+                                                                            height="110px" [src]="img.url" alt="image"
+                                                                            [routerLink]="['/PropertyOverview']"
+                                                                            [queryParams]="{ id: item.propertyId }">
+                                                                    </ng-container>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="d-flex flex-column justify-content"
+                                                                style="height: 110px; margin-left: 10px;">
+                                                                <span>
+                                                                    <p class="mb-0">
+                                                                        <strong>
+                                                                            {{item.formattedAddress}}
+                                                                        </strong>
+                                                                    </p>
+                                                                </span>
+
+                                                                <span
+                                                                    class="d-flex justify-content-between align-items-end h-100">
+                                                                    <span class="mt-2">
+                                                                        <p class="mb-0">
+                                                                            Property Price
+                                                                            <br>
+                                                                            <strong>
+                                                                                ${{item.listingPrice}}
+                                                                            </strong>
+                                                                        </p>
+                                                                    </span>
+                                                                    <span>
+                                                                        <i class="fa-solid fa-sort-up  mt-4"
+                                                                            style="color: Green; margin-left:60px;"></i>
+                                                                    </span>
+                                                                    <span>
+                                                                        <p class="mb-0 mt-4">
+                                                                            <strong> 2.27%</strong>
+                                                                        </p>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="col-md-3 d-flex flex-column justify-content-between custom-right-align">
+                                                            <span>
+                                                                <p class="mb-0">
+                                                                    <i class="fa fa-circle" style="color: #40afed;"
+                                                                        aria-hidden="true"></i>
+                                                                    Active
+                                                                </p>
+                                                            </span>
+                                                            <!-- <span>
+                                                                <p class="mb-0">
+                                                                    Property value
+                                                                    <strong>$1,50,300</strong>
+                                                                </p>
+                                                            </span> -->
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </ng-container>
+                                            </span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #notFound>
+                                        <div class="card"
+                                            style="height: 300px;width:650px;overflow: auto;margin:10px;border: none;">
+                                            <img src="../../../assets/Add property image.png" width="100%" height="100%"
+                                                alt="">
+                                        </div>
+                                    </ng-template>
+                                </div>
+                                <div *ngIf="activestatusButton==='Vacant'">
+                                    <div class="card"
+                                        style="height: 300px;width:650px;overflow: auto;margin:10px;border: none;">
+                                        <img src="../../../assets/Add property image.png" width="100%" height="100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div *ngIf="activestatusButton==='Under Construction'">
+                                    <div class="card"
+                                        style="height: 300px;width:650px;overflow: auto;margin:10px;border: none;">
+                                        <img src="../../../assets/Add property image.png" width="100%" height="100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="text" class="form-control"
+                                    style="height: 48px;width: 167px;max-width: 100%;"
+                                    placeholder="Search for property..." [(ngModel)]="statusInputSearch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" style="padding-left: 5px;">
+                    <div class="card" style="height: 375px; overflow: hidden; ">
+                        <mat-tab-group>
+                            <mat-tab label="Income">
+                                <div class=""
+                                    style="overflow-y: scroll; max-height: 300px; white-space: nowrap;padding: 10px;">
+                                    <div class="d-flex flex-wrap mx-1">
+                                        <!-- Content for Tab 1 -->
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$2,300</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Advance Rent received</h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$15,800</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>12/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$1,500</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>12/07/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$3,480</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>09/06/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$2,800</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$2,300</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Rent received</h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$2,300</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Repeat this structure for other rows -->
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Expense">
+                                <div class=""
+                                    style="overflow-y: scroll;  max-height: 300px; white-space: nowrap;padding: 10px;">
+                                    <div class="d-flex flex-wrap mx-1">
+                                        <!-- Content for Tab 1 -->
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Water leakage solved </h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$ 300</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>EB Bill paid</h6>
+                                            <p>15/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$ 600</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Garden maintenance</h6>
+                                            <p>12/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$ 800</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>Renovation work</h6>
+                                            <p>10/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$ 15,480</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="col-6 custom-left-align">
+                                            <h6>EB Bill paid</h6>
+                                            <p>09/08/2023</p>
+                                        </div>
+                                        <div class="col-6 custom-right-align">
+                                            <select name="" id="" class="border-0">
+                                                <option value="$">
+                                                    <h6>$ 680</h6>
+                                                </option>
+                                                <option value="$"></option>
+                                                <option value="$"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="mt-1">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="left-content mt-2">
+                                Income and Expenses
+                            </div>
+                            <div class="dropdown">
+
+                                <span>
+                                    Jan 2022 to Dec 2022
+                                </span>
+                                <select name="" id="" class="border-1 rounded px-2 py-2 mx-2"
+                                    style="background-color: #e1f1fb; border: 1px solid #e1f1fb;">
+                                    <option value="">2021</option>
+                                    <option value="">2022</option>
+                                    <option value="">2023</option>
+                                </select>
+                                <span>
+                                    <i class="fa fa-cog fa-1x" style="color: #8bb3ca;" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart">
+                                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                    [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels"
+                                    [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"
+                                    [colors]="chartOptions.colors" [fill]="chartOptions.fill"
+                                    [yaxis]="chartOptions.yaxis" [legend]="chartOptions.legend">
+
+                                </apx-chart>
+
+                                <div class="d-flex flex-row gap-3"
+                                    style="position: absolute; bottom: 10px;margin-left: 30px;">
+                                    <div class="d-flex flex-column">
+                                        <span style="font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 500;color: #6C757D;">
+                                            Total Expense
+                                        </span>
+                                        <span style="font-size: 18px;
+                                    font-style: normal;
+                                    font-weight: 600; color:#40AFED">
+                                            $1,50,300
+                                        </span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span style="font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 500;color: #6C757D;">
+                                            Total Expense
+                                        </span>
+                                        <span style="font-size: 18px;
+                                    font-style: normal;
+                                    font-weight: 600;">
+                                            $1,50,300
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="property-card-container">
+        <router-outlet></router-outlet>
+    </div>
+
+
+</mat-drawer-container>
+
+
+<!-- model for add property------------------------ -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button #myButton type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0 m-0">
+                <app-addproperty (submitEvent)="handleChildData($event)"></app-addproperty>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- model for Landlord Properties List------------------------ -->
+<div class="modal fade" id="MyPropertiesModal" tabindex="-1" aria-labelledby="MyPropertiesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <!-- Use modal-xl for extra-large width -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">My Properties</h5>
+                <button type="button" class=" btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow: auto;">
+
+    <app-my-properties></app-my-properties>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Modal for Adding New Investment -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="addInvestmentModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addInvestmentModalTitle">{{ isEditMode ? 'Edit' : 'Add' }} Investment</h5>
+                <button #closeInvest type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="investment">
+                    <div class="form-group"
+                        [ngClass]="{'has-error': investment.get('investmentName')?.invalid && investment.get('investmentName')?.touched}">
+                        <label for="investmentInput">Investment <span class="mandatory-indicator">*</span></label>
+                        <input required type="text" class="form-control" id="investmentInput" name="investmentName"
+                            formControlName="investmentName" placeholder="Enter Investment" style="width: 100%;"
+                            [ngClass]="{'error-placeholder': investment.get('investmentName')?.invalid && investment.get('investmentName')?.touched}">
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'has-error': investment.get('propertyId')?.invalid && investment.get('propertyId')?.touched}">
+                        <label for="propertyDropdown">Property <span class="mandatory-indicator">*</span></label>
+                        <select id="dropdown" formControlName="propertyId" class="form-control" multiple>
+                            <option *ngFor="let option of propertiesid" [value]="option.propertyId">{{
+                                option.formattedAddress }}</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" [disabled]="investment.invalid"
+                            (click)="onSubmit()"> {{ isEditMode ? 'Update' :
+                            'Save' }}</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- table modal -->
+<div class="modal fade" id="exampleModalNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalNewTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <!-- Use modal-xl for extra-large width -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">My Investments</h5>
+                <button type="button" class=" btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body" style="max-height: 500px; overflow: auto;">
+                <!-- table format of investment -->
+                <div *ngIf="showInvestmentsTable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Investment Name</th>
+                                <th>Property</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let investment of investmentData; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ investment.investmentName }}</td>
+
+                                <td>
+                                    <span *ngFor="let property of investment.propertyInversementList;let i = index">
+                                        {{i+1}} - {{ property.propertyAddress }}<br />
+                                    </span>
+                                </td>
+                                <td>
+                                    <!-- Use Angular Material edit icon -->
+                                    <button data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalCenter" mat-icon-button
+                                        (click)="editInvestment(investment)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- //---------reset Password---- -->
+<div class="modal fade" id="passwordchangemodal" tabindex="-1" role="dialog" aria-labelledby="passwordchangemodalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Reset Password</h5>
+                <button #resetpassword type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="changePassword-Details">
+                    <app-reset-password (closeModelEvent)="handleModelClosed()"></app-reset-password>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ---------------------user details edit modal --------------------------->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h5 class="modal-title" id="exampleModalLabel">Edit User Details</h5>
+          <button #edituserdetails type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+        </div>
+        <div class="modal-body">
+            <app-edituserdetails></app-edituserdetails>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------maintenance management modal---------------------->
+
+  <div class="modal fade" id="maintenanceModal" tabindex="-1" role="dialog" aria-labelledby="maintenanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Maintenance Request</h5>
+          <button #edituserdetails type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+        </div>
+        <div class="modal-body">
+        <app-maintenance></app-maintenance>
+        </div>
+      </div>
+    </div>
+  </div>

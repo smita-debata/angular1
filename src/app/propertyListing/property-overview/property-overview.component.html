@@ -1,0 +1,350 @@
+<nav class="navbar navbar-expand-lg navbar-light p-1" style="background-color: #40afed;">
+    <div class="container-fluid">
+        <div class="nav-item" [routerLink]="['/']" style="cursor: pointer;">
+            <img src="../../../assets/company logo/AR logo 6.png" alt="" width="100px" height="40px">
+        </div>
+        <div class="nav-item input-group mx-auto mb-lg-0"
+            style="width: 600px;height: 48px;border-color:#40afed;border-radius: 5%;">
+
+            <div class="input-group-text" style="background-color: white;cursor: pointer;">
+                <img src="../../assets/house-search.png" alt="" width="25px" height="25px">
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="searchCity" style="border-right: none;" readonly
+                placeholder="Address....." aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+        <form class="d-flex gap-3" style="justify-content: baseline;align-items: baseline;color: white;">
+            <!-- <div class="header-name1">
+                <i class="fa-solid fa-user" style="color: white;"></i>
+            </div> -->
+            <ng-container *ngIf="!personName; else loggedIn">
+                <div class="header-name1">
+                    <i class="fa-solid fa-user" style="color: white;"></i>
+                </div>
+            </ng-container>
+            <ng-template #loggedIn>
+                <span>
+                    <img height="35px" width="35px" style="border-radius: 50%;"
+                        src="https://png.pngtree.com/png-vector/20220719/ourmid/pngtree-people-avatar-icons---businessman-person-professional-forum-vector-png-image_38038544.png"
+                        alt="user">
+                    <span class="mx-1 text-white  ">
+                        {{personName}}
+                    </span>
+                </span>
+            </ng-template>
+        </form>
+    </div>
+</nav>
+<div class="image-content-container">
+    <div class="cancel-button">
+        <img src="../../../assets/propertyOverview/dangerous.png" (click)="goBack()" alt="">
+    </div>
+    <div *ngFor="let item of propertydetailsdata">
+        <div class="image-container" *ngIf="item.propertyId==propertyId">
+            <div class="active-icon">
+                <i class="fa-regular fa-circle-dot"
+                    [ngStyle]="{'color': item.contractType === 'Rent' ? '#008000' : (item.contractType === 'Sale' || item.contractType === 'Lease') ? '#FF0000' : ''}"></i>
+                <span>
+                    {{item.contractType}}
+                </span>
+            </div>
+            <ng-container>
+                <div class="all-images-container" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img *ngFor="let image of item.imageUrls" [src]="image.url" class="all-images" alt="">
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="card content-container">
+        <div class="product-content-header">
+            <i (click)="showPreviousPage()" class="fa-solid fa-arrow-left icon-arrow"></i>
+            <div class="icon-propertyname" *ngFor="let item of displayedIcons; let i = index;"
+                (click)="toggleActive(i,$event)" [class.active]="activeIconIndex === i">
+                <img class="icon-class" [src]="item.url" alt="Icon {{i}}" width="25px" height="25px">
+                <span class="icon-name mx-1">{{ item.name }}</span>
+            </div>
+            <i (click)="showNextPage()" class="fa-solid fa-arrow-right-long icon-arrow"></i>
+        </div>
+        <div class="scroll-content">
+            <div id="Property Details"
+                class="content-section card d-flex flex-row justify-content-between align-items-center">
+                <ng-container *ngFor="let item of propertydetailsdata">
+                    <div class="propertyAddress" *ngIf="item.propertyId==propertyId">
+                        <div class="d-flex flex-column w-100">
+                            <span style="font-size: 14px;;">{{item.formattedAddress}}</span>
+                        </div>
+                        <div style="font-weight: 500;margin-top: 5px;font-size: 14px;">
+                            <span><b>{{item.bedrooms}}</b>bds</span> <span
+                                style="color: rgb(87 85 85);margin: 5px;">|</span>
+                            <span><b>{{item.squareFootage}}</b>sqft</span><span
+                                style="color: rgb(87 85 85);margin: 5px;">|</span><b>{{ getAge(item.yearBuilt)
+                                }}</b>
+                        </div>
+                        <div>
+                            <button class="btn btn-light" style="background-color: #40AFED;position: absolute;
+                            bottom: 30px;width: 200px;height: 40px;">Request a
+                                tour</button>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="propertyAddress-content">
+                    <ng-container *ngFor="let item of propertydetailsdata">
+                        <div *ngIf="item.propertyId==propertyId">
+                            <h6 style="font-size: 15px;">{{item.description}}</h6>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <hr style=" border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Amenties" class="content-section d-flex flex-row">
+                <div class="row d-flex gap-3">
+                    <div class="amentiesOne">
+                        <h4>Interior Amenities</h4>
+                        <ng-container *ngFor="let item of propertydetailsdata">
+                            <div *ngFor="let category of item.amenities">
+                                <div *ngIf="item.propertyId == propertyId && isInterior(category.amenityCategoryId)">
+                                    <h6>{{ category.amenityCategoryName }}</h6>
+                                    <ul>
+                                        <li *ngFor="let amenity of category.list">
+                                            {{ amenity.amenityName }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="amentiesOne">
+                        <h4>Exterior Amenities</h4>
+                        <ng-container *ngFor="let item of propertydetailsdata">
+                            <div *ngFor="let category of item.amenities">
+                                <div *ngIf="item.propertyId == propertyId && isExterior(category.amenityCategoryId)">
+                                    <h6>{{ category.amenityCategoryName }}</h6>
+                                    <ul>
+                                        <li *ngFor="let amenity of category.list">
+                                            {{ amenity.amenityName }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="amentiesOne">
+                        <h4>Utilities Amenities</h4>
+                        <ng-container *ngFor="let item of propertydetailsdata">
+                            <div *ngFor="let category of item.amenities">
+                                <div *ngIf="item.propertyId == propertyId && isUtilities(category.amenityCategoryId)">
+                                    <h6>{{ category.amenityCategoryName }}</h6>
+                                    <ul>
+                                        <li *ngFor="let amenity of category.list">
+                                            {{ amenity.amenityName }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Key Features" class="content-section d-flex flex-row  align-items-center">
+                <!-- <ng-container *ngFor="let item of propertydetailsdata">
+                    <div class="amenties-container" *ngIf="item.propertyId==propertyId">
+                        <div class="property-feature" *ngFor="let feature of propertyFeatures">
+                            <span>
+                                <i class="fas" [ngClass]="getIconClass(feature)"></i> {{ feature }}
+                            </span>
+                        </div>
+                    </div>
+                </ng-container> -->
+                <ng-container *ngFor="let item of propertydetailsdata">
+                    <div *ngIf="item.propertyId==propertyId">
+                        <ul>
+                            <li><strong>Property Type:</strong> {{ item.propertyTypeName }}</li>
+                            <li><strong>Location:</strong> {{ item.city }}, {{ item.state }}, {{ item.country }}</li>
+                            <li><strong>Number of Bedrooms:</strong> {{ item.bedrooms }}</li>
+                            <li><strong>Number of Bathrooms:</strong> {{ item.bathrooms }}</li>
+                            <li><strong>Square Footage:</strong> {{ item.squareFootage }} sq ft</li>
+                            <li><strong>Price:</strong> {{
+                                item.contractType === 'Sale'
+                                ? '$' + item.listingPrice
+                                : item.contractType === 'Rent'
+                                ? '$' + item.listingPrice + '/mo'
+                                : item.contractType === 'Lease'
+                                ? '$' + item.listingPrice + '/mo'
+                                : ''
+                                }}</li>
+                            <li><strong>Property For:</strong> {{ item.contractType }}</li>
+                            <li><strong>Year Built:</strong> {{ item.yearBuilt }}</li>
+                            <li><strong>Lot Size:</strong> {{ item.lotSize }} sq ft</li>
+                        </ul>
+                    </div>
+                </ng-container>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Pricing Details" class="content-section d-flex flex-row  align-items-center">
+                <ng-container *ngFor="let item of propertydetailsdata">
+                    <div class="PricingDetails-container" *ngIf="item.propertyId==propertyId">
+                        <h3> {{
+                            item.contractType === 'Sale'
+                            ? '$' + item.listingPrice
+                            : item.contractType === 'Rent'
+                            ? '$' + item.listingPrice + '/mo'
+                            : item.contractType === 'Lease'
+                            ? '$' + item.listingPrice + '/mo'
+                            : ''
+                            }}</h3>
+                        <span>HOA Fees</span>
+                        <h6>Taxes - $30</h6>
+                        <h6>Maintenance Cost - $3000/mo</h6>
+                    </div>
+                </ng-container>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Contact Information" class="content-section d-flex flex-row  align-items-center">
+                <div class="ContactInformation-container">
+                    <h4>Property Manager Contact</h4>
+                    <span>Name: Mark Henry </span>
+                    <span>Ph no: +913456789876..</span>
+                    <h5> Agent Details</h5>
+                    <span>Name: john smit </span>
+                    <span>Moboile: +913456789876 </span>
+                </div>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Nearby Places" class="content-section d-flex flex-row  align-items-center">
+                <div class="amenties-container">
+                    <div class="property-feature" *ngFor="let feature of propertyNearBy">
+                        <span>
+                            <i class="fas" [ngClass]="getIconClassNearBy(feature)"></i> {{ feature }}
+                        </span>
+                    </div>
+                </div>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Neighborhood" class="content-section d-flex flex-row align-items-center">
+                <div class="amenties-container">
+                    <div class="neighborhood-amenity" *ngFor="let amenity of neighborhoodAmenities">
+                        <span>
+                            <i class="fas" [ngClass]="getIconNeighborhoodAmenities(amenity)"></i> {{ amenity.title }}
+                        </span>
+                        <p>{{ amenity.description }}</p>
+                    </div>
+                </div>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="Local legal protection" class="content-section d-flex flex-row  align-items-center">
+                <div class="amenties-container">
+                    <div class="legal-info" *ngFor="let legalAspect of legalAspects">
+                        <span>
+                            <i class="fas" [ngClass]="getIconClasslegalAspect(legalAspect)"></i> {{ legalAspect.title }}
+                        </span>
+                        <p>{{ legalAspect.description }}</p>
+                    </div>
+                </div>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <hr style="width: 1013px; border-top: 2px dotted #70A2Be;max-width: 100%;">
+            <div id="FAQ" class="content-section d-flex flex-row align-items-center">
+                <ng-container *ngFor="let item of propertydetailsdata">
+                    <div class="faq-container" *ngIf="item.propertyId==propertyId">
+                        <h6>Frequently Asked Questions</h6>
+                        <b>Q: What is the property's address?</b>
+                        <span> A: The property is located at {{item.formattedAddress}}.</span>
+                        <b>Q: How many bedrooms and bathrooms does the property have?</b>
+                        <span> A: This property features {{item.bedrooms}} bedrooms and {{item.bathrooms}}
+                            bathrooms.</span>
+                        <b>Q: Is there parking available?</b>
+                        <div *ngFor="let category of item.amenities">
+                            <ng-container *ngIf="category.amenityCategoryName === 'Parking'">
+                                <span>A: Yes, the property includes parking. Types of parking spaces are:
+                                    <span *ngFor="let parking of category.list; let last = last">
+                                        {{ parking.amenityName }}{{ !last ? ', ' : '' }}
+                                    </span>
+                                </span>
+                            </ng-container>
+                        </div>
+                        <b>Q: What is the size of the property?</b>
+                        <span> A: The property measures approximately {{item.squareFootage}} squareFeet and lotSize
+                            {{item.lotSize}}</span>
+                        <b>Q: Are pets allowed?</b>
+                        <div *ngFor="let category of item.amenities">
+                            <ng-container
+                                *ngIf="category.amenityCategoryName === 'Cats' || category.amenityCategoryName === 'Dogs'">
+                                <div *ngFor="let pet of category.list">
+                                    <span *ngIf="category.amenityCategoryName === 'Cats'">Cats: {{ pet.amenityName
+                                        }}</span>
+                                    <span *ngIf="category.amenityCategoryName === 'Dogs'">Dogs: {{ pet.amenityName
+                                        }}</span>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="responsiveBox">
+
+                </div>
+            </div>
+            <div class="Requesttour" *ngIf="propertyPresent!==0">
+                <button class="btn btn-light" style="background-color: #40AFED;width: 200px;height: 40px;">Request a
+                    tour</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!--modal for displaying images -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button #myButton type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <ng-container *ngFor="let item of propertydetailsdata">
+                            <ng-container *ngIf="item.propertyId == propertyId">
+                                <div class="carousel-item" *ngFor="let image of item.imageUrls; let i = index"
+                                    [class.active]="i === 0">
+                                    <img [src]="image.url" class="d-block w-100" height="450px" alt="">
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

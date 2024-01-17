@@ -1,0 +1,35 @@
+<!-- <input type="file" (change)="onFileSelected($event)" multiple> -->
+<input type="file" multiple (change)="onFileSelected($event)" />
+<button (click)="uploadFiles()">Upload Files</button>
+
+<!-- <input type="file" style="width: 95%; outline: none" #file accept=".png,.jpg" (change)="onChange(file.files)"
+    name="file" required /> -->
+<!-- <div class="container" *ngFor="let item of allPropertydata">
+    <div class="card">
+        <span>propertyType: {{item.PropertyType}}</span>
+        <span>propertySubType: {{item.PropertyType}}</span>z;
+        <span>PropertySubType: {{item.PropertySubType}}</span>
+        <span>BuilderName: {{item.BuilderName}}</span>
+        <span>OccupantPhone: {{item.OccupantPhone}}</span>
+        <span>ListingKey: {{item.ListingKey}}</span>
+        <span>ListingId: {{item.ListingId}}</span>
+        <span>propertyType: {{item.PropertyType}}</span>
+    </div>
+
+
+</div> -->
+<h3>Autocomplete Search</h3>
+
+<input #autocompleteInput type="text" placeholder="Enter a location">
+<!-- <div>
+    <input placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        class="form-control" #search />
+</div>
+
+<div *ngIf="selectedPlace">
+    <h4>Selected Place Details:</h4>
+    <p>{{ selectedPlace.name }}</p>
+
+</div> -->
+
+<!-- <div id="webchat" style="height: 400px; width: 100%;"></div> -->

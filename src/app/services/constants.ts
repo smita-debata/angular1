@@ -1,0 +1,23 @@
+export const ApiKey = {
+    baseUrl: 'http://20.127.32.150:443/',
+    register: 'auth/registration',
+    login: 'auth/genToken',
+    upload: 'landlord/property-image/upload/2',
+    propertydata: 'landlord/propertyDetails/getAllProperty',
+    currentUser: 'auth/current-user',
+    getAmenties: 'landlord/amenity/getPropertyAmenity',
+    propertyType: 'landlord/propertyTypes/getAllPropertyTypes',
+    addproperty: 'landlord/propertyDetails/save',
+    AddImages: 'landlord/fileUpload/upload/images',
+    AddVideos: 'landlord/fileUpload/upload/videos',
+    getImages: 'landlord/fileUpload/picture/download',
+    getallproperties: 'landlord/propertyDetails/getAllProperty',
+    createinvestment: 'landlord/property/investment/savePropertyInvestment',
+    getinvestment: 'landlord/property/investment/getMyPropertyInvestment',
+    getNetworth: 'landlord/propertyDetails/networth',
+    UploadDocuments: 'landlord/document/uploadDocuments',
+    deleteInvestement: '',
+    getLandLordProperties: 'landlord/propertyDetails/getMyProperty',
+    postlandlordpassword:'auth/resetPassword',
+    postLike:'landlord/like/add'
+}
